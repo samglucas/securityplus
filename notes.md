@@ -245,3 +245,41 @@
 * **Description:** A policy framework that ties SPF and DKIM together. It tells the receiving mail server what to do (None, Quarantine, or Reject) if an email fails SPF or DKIM checks.
 * **How it Works:** It also provides a reporting mechanism so domain owners can see who is sending mail on their behalf and if they are failing authentication.
 * **Mitigation:** Provides a unified policy to stop spoofing and phishing attacks while providing visibility into mail flow.
+
+# Load Balancers & Proxies
+
+## Load Balancers
+**Definition:** A device or software application that distributes network or application traffic across a cluster of servers. This prevents any single server from becoming a bottleneck, ensuring high availability and reliability.
+
+### 1. Active/Active
+* **Description:** Every node in the cluster is actively handling traffic simultaneously.
+* **Real-World Use Case:** A global e-commerce site during a "Black Friday" event. Incoming traffic is distributed across ten different web servers to prevent any single server from crashing under the massive volume of shoppers.
+* **Benefit:** Provides maximum throughput and ensures that if one server fails, the others simply continue handling the load with minimal impact on performance.
+
+### 2. Active/Passive
+* **Description:** Only one node (the primary) is actively handling traffic, while the secondary node remains on standby. The secondary only takes over if the primary fails.
+* **Real-World Use Case:** A hospital's electronic health record (EHR) database. To maintain strict data consistency, only one database server handles writes at a time. If it fails, a heartbeat monitor triggers the passive server to take over within seconds.
+* **Benefit:** Ensures high availability for stateful applications where having multiple active writers might cause data corruption.
+
+## Proxy Servers
+**Definition:** A server that acts as an intermediary between a client (user) and a destination (server). It intercepts requests to provide security, privacy, or performance optimization.
+
+### 1. Forward Proxies
+* **Description:** Sits between a group of internal clients and the internet. It evaluates outgoing requests and then forwards them.
+* **Real-World Use Case:** A high school network. When a student tries to visit a website, the forward proxy checks a blocklist. If the site is approved, the proxy fetches the page and delivers it to the student, hiding the student's internal IP from the website.
+* **Benefit:** Centralized control over web traffic and improved security by masking the internal network structure.
+
+### 2. Transparent Proxies
+* **Description:** Intercepts traffic at the network level without requiring any configuration on the client's device. The user is often unaware their traffic is being proxied.
+* **Real-World Use Case:** A coffee shop Wi-Fi "Captive Portal." When you connect and try to browse the web, the transparent proxy intercepts your request and redirects you to their "Terms and Conditions" page before allowing you to proceed.
+* **Benefit:** Requires zero configuration from the end-user, making it ideal for public or guest networks.
+
+### 3. Reverse Proxies
+* **Description:** Sits in front of one or more internal web servers and handles incoming requests from the internet.
+* **Real-World Use Case:** A major news website using **Nginx** or **Cloudflare**. Instead of users hitting the origin database directly, they hit the reverse proxy, which serves cached versions of the articles, protecting the origin server from high traffic and DDoS attacks.
+* **Benefit:** Provides an additional layer of security, SSL/TLS offloading, and improved performance through caching.
+
+### 4. Anonymous Proxies
+* **Description:** A type of forward proxy that strips the user's identifying information (IP address) from the request headers before sending it to the destination.
+* **Real-World Use Case:** An investigative journalist researching a sensitive topic. They use an anonymous proxy to browse public forums so that their home or office IP address isn't logged by the site administrators, protecting their location and identity.
+* **Benefit:** Enhances user privacy and bypasses basic IP-based tracking or geo-blocking.

@@ -135,3 +135,39 @@
 ### 7. Bluesnarfing
 * **Description:** The unauthorized access of information (contacts, photos, emails) from a wireless device through a Bluetooth connection.
 * **Mitigation:** Keep device firmware updated, use strong pairing PINs, and disable Bluetooth in public spaces if not needed.
+
+## Access Control Rules
+
+### 1. Implicit Deny
+* **Description:** A security principle where any traffic that is not explicitly permitted by a rule is automatically blocked. This is the default "last rule" in most modern firewalls and ACLs.
+* **Mitigation/Benefit:** Prevents unauthorized access by ensuring only known-good traffic is allowed through the network.
+
+### 2. Implicit Allow
+* **Description:** A configuration where all traffic is permitted unless a specific rule exists to block it. This is generally considered a security risk and is rarely used in high-security environments.
+* **Mitigation/Benefit:** Usually replaced by a "Zero Trust" or "Implicit Deny" posture to improve security.
+
+## Switch Security Features
+
+### 1. Port Security
+* **Description:** Limits the number of MAC addresses that can connect to a single physical switch port. It can trigger an action (like shutting down the port) if an unauthorized device is plugged in.
+* **Mitigation:** Prevents unauthorized devices from joining the network and mitigates MAC flooding attacks.
+
+### 2. MAC Filtering
+* **Description:** A list of approved MAC addresses allowed to communicate through a device. While easily spoofed, it provides a basic layer of hardware-level control.
+* **Mitigation:** Use in conjunction with 802.1X for stronger identity-based access control.
+
+### 3. DHCP Snooping
+* **Description:** A security feature that acts like a firewall between untrusted hosts and trusted DHCP servers. It builds a mapping table of valid IP/MAC pairings.
+* **Mitigation:** Prevents **Rogue DHCP** servers and **DHCP Starvation** attacks.
+
+### 4. Loop Protection
+* **Description:** Mechanisms like **Spanning Tree Protocol (STP)** that detect and prevent switching loops, which occur when there are multiple active paths between switches.
+* **Mitigation:** Prevents broadcast storms that can crash an entire network segment.
+
+### 5. Flood Guard
+* **Description:** A feature designed to prevent resource exhaustion by limiting the number of MAC addresses learned per port or the rate of incoming traffic.
+* **Mitigation:** Protects against **MAC Flooding** attacks that attempt to turn a switch into a "hub" to intercept traffic.
+
+### 6. MACsec (802.1AE)
+* **Description:** An IEEE standard that provides point-to-point encryption and integrity on wired LANs at Layer 2.
+* **Mitigation:** Protects against eavesdropping, man-in-the-middle attacks, and replay attacks at the hardware level.

@@ -1,5 +1,26 @@
 # Security+ Class Notes
 
+# Procedural Documentation: Runbooks vs. Playbooks
+
+### 1. Runbooks
+* **Definition:** A highly technical, step-by-step document that outlines how to perform a specific, routine task or maintenance procedure. It is "operational" in nature and focuses on the *how*.
+* **Real-World Use Case:** A document titled "How to Patch the Production SQL Server" that lists every command to type, which services to stop, and how to verify the update was successful.
+* **Benefit:** Ensures that even if a senior admin is unavailable, a junior admin can follow the exact steps to complete a task without errors.
+
+### 2. Playbooks
+* **Definition:** A high-level, strategic document that outlines the "plays" or general strategy an organization should follow in response to a specific scenario or threat. It is "strategic" and focuses on the *what* and *why*.
+* **Real-World Use Case:** A "Ransomware Response Playbook" that dictates who needs to be called (legal, PR, management), the general order of operations (containment before eradication), and the criteria for declaring the incident resolved.
+* **Benefit:** Provides a framework for decision-making during high-stress situations, ensuring that all regulatory and organizational requirements are met.
+
+## Key Differences
+
+| Feature | Runbook | Playbook |
+| :--- | :--- | :--- |
+| **Scope** | Narrow and technical. | Broad and strategic. |
+| **Goal** | Efficiently complete a routine task. | Effectively manage a complex scenario. |
+| **Audience** | Technicians and System Administrators. | Incident Responders and Management. |
+| **Example** | "Steps to reset a user's password." | "Steps to respond to a data breach." |
+
 # Business & Supply Chain Agreements
 
 ## Business Agreements

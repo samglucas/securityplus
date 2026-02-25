@@ -1,7 +1,7 @@
 # Security+ Resources
 
 ## TryHackMe
-[Cryptography Basics](https://tryhackme.com/room/cryptographybasics)
+[Cryptography Basics](https://tryhackme.com/room/cryptographybasics)<br>
 [Cryptography Concepts](https://tryhackme.com/room/cryptographyconcepts)<br>
 [Introduction to Networking](https://tryhackme.com/room/introtonetworking)<br>
 [Nmap](https://tryhackme.com/room/furthernmap)<br>

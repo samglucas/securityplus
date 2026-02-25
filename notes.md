@@ -348,3 +348,42 @@
 * **SMTPS (Port 465):** Secure version of SMTP using TLS encryption.
 * **POP3 (Port 110/995):** Downloads email from a server to a local client (typically deletes from server).
 * **IMAP (Port 143/993):** Syncs email across multiple devices while keeping it stored on the server.
+
+# Wi-Fi Encryption & Authentication Standards
+
+## Wireless Encryption Generations
+
+### 1. WPA (Wi-Fi Protected Access)
+* **Description:** A temporary security protocol created to replace the highly vulnerable WEP. It introduced **TKIP** (Temporal Key Integrity Protocol) to dynamically change encryption keys.
+* **Status:** Deprecated and insecure.
+
+### 2. WPA2
+* **Description:** The long-standing standard for Wi-Fi security. It replaced TKIP with **CCMP** (Counter Mode with Cipher Block Chaining Message Authentication Code Protocol), which uses **AES** encryption.
+* **Vulnerability:** Susceptible to offline dictionary attacks and the **KRACK** (Key Reinstallation Attack) vulnerability if not patched.
+
+### 3. WPA3
+* **Description:** The modern standard that addresses WPA2's weaknesses. It mandates the use of **Protected Management Frames (PMF)** and replaces the vulnerable 4-way handshake with more robust methods.
+* **Benefit:** Provides individualized data encryption even on open networks and resists brute-force attacks.
+
+## Authentication Methods
+
+### 1. PSK (Pre-Shared Key)
+* **Description:** Also known as **WPA Personal**. Every user on the network uses the same passphrase to connect.
+* **Use Case:** Home networks or small offices where managing individual user accounts is not feasible.
+
+### 2. SAE (Simultaneous Authentication of Equals)
+* **Description:** The core upgrade in **WPA3-Personal**. It uses a "Dragonfly" key exchange that is resistant to offline dictionary attacks.
+* **Benefit:** Even if a user chooses a weak password, SAE makes it significantly harder for an attacker to crack it.
+
+### 3. SAE-PK (SAE Public Key)
+* **Description:** An extension of SAE that uses public-key cryptography to prevent "Evil Twin" attacks.
+* **Use Case:** Verifying that the Access Point the client is connecting to is the legitimate one and hasn't been spoofed.
+
+### 4. WPA Enterprise / 802.1X Mode
+* **Description:** Instead of a shared password, users authenticate with their own credentials (username/password or certificates) via a **RADIUS** server.
+* **Real-World Use Case:** A corporate office where employees log into the Wi-Fi using their Active Directory credentials. This allows for individual auditing and easy revocation of access.
+
+### 5. Captive Portal
+* **Description:** A web page that is displayed to newly connected users before they are granted broader access to the internet.
+* **Real-World Use Case:** Airport or hotel Wi-Fi where you must enter a room number, email address, or accept "Terms of Service" before the internet starts working.
+* **Security Note:** Often used in conjunction with an **Open** or **Transparent Proxy**.

@@ -283,3 +283,68 @@
 * **Description:** A type of forward proxy that strips the user's identifying information (IP address) from the request headers before sending it to the destination.
 * **Real-World Use Case:** An investigative journalist researching a sensitive topic. They use an anonymous proxy to browse public forums so that their home or office IP address isn't logged by the site administrators, protecting their location and identity.
 * **Benefit:** Enhances user privacy and bypasses basic IP-based tracking or geo-blocking.
+
+# Network Infrastructure & Security Protocols
+
+## The OSI Model
+**Definition:** A conceptual framework used to understand how data moves through a network, divided into 7 layers.
+
+* **Layer 7: Application** – Where the user interacts (HTTP, FTP, SMTP).
+* **Layer 6: Presentation** – Data encryption and formatting (JPEG, ASCII).
+* **Layer 5: Session** – Establishes/manages connections (RPC, NetBIOS).
+* **Layer 4: Transport** – End-to-end communication (TCP, UDP).
+* **Layer 3: Network** – Routing and logical addressing (IP, ICMP).
+* **Layer 2: Data Link** – Physical addressing and switching (MAC, Ethernet).
+* **Layer 1: Physical** – Cables, bits, and electrical signals.
+
+
+
+---
+
+## Web Security & Encryption
+
+### 1. SSL/TLS & HTTPS
+* **SSL (Secure Sockets Layer):** The deprecated predecessor to TLS.
+* **TLS (Transport Layer Security):** The modern standard for encrypting data between a client and a server.
+* **HTTPS (Port 443):** Secure web browsing; HTTP traffic wrapped inside a TLS tunnel.
+* **Cipher Suites:** A set of algorithms (key exchange, encryption, hashing) used to negotiate a secure connection.
+
+### 2. SSH (Secure Shell) - Port 22
+* **Description:** A cryptographic network protocol for operating network services securely over an unsecured network.
+* **Use Case:** A System Administrator remotely logging into a Linux server terminal to perform maintenance.
+
+## IPsec (Internet Protocol Security)
+**Definition:** A suite of protocols used to secure IP communications by authenticating and encrypting each IP packet.
+
+* **IKE (Internet Key Exchange):** Manages the "handshake" to set up secure keys between two parties.
+* **AH (Authentication Header):** Provides data integrity and origin authentication, but **does not** provide encryption.
+* **ESP (Encapsulating Security Payload):** Provides encryption, integrity, and authentication.
+* **Use Case:** Setting up a Site-to-Site VPN to connect a branch office to the main headquarters.
+
+## Common Network Services
+
+| Service | Protocol | Port | Definition / Use Case |
+| :--- | :--- | :--- | :--- |
+| **DHCP** | UDP | 67/68 | Automatically assigns IP addresses to devices on a network. |
+| **DNS** | TCP/UDP | 53 | Resolves human-readable names (google.com) to IP addresses. |
+| **NTP** | UDP | 123 | Synchronizes the clocks of devices across a network for accurate logging. |
+| **LDAP** | TCP/UDP | 389/636 | A directory service protocol used for centralized authentication (e.g., Active Directory). |
+
+## Remote Access Protocols
+
+* **Telnet (Port 23):** Unencrypted remote terminal access. **Use Case:** Legacy equipment maintenance (Avoid in production).
+* **RDP (Port 3389):** Microsoft's Graphical User Interface (GUI) for remote desktop access.
+* **VNC (Port 5900):** A platform-independent GUI remote access system.
+* **HTTP/HTTPS:** Web-based consoles (like a router's admin page).
+
+## Secure File Sharing
+
+* **SMB (Server Message Block) - Port 445:** Primarily used by Windows for sharing files and printers. Modern versions (SMB 3.0+) support encryption.
+* **NFS (Network File System) - Port 2049:** Primarily used in Linux/Unix environments to mount remote drives as if they were local.
+
+## Secure Email Protocols
+
+* **SMTP (Port 25/587):** Used for **sending** email from a client to a server.
+* **SMTPS (Port 465):** Secure version of SMTP using TLS encryption.
+* **POP3 (Port 110/995):** Downloads email from a server to a local client (typically deletes from server).
+* **IMAP (Port 143/993):** Syncs email across multiple devices while keeping it stored on the server.

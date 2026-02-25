@@ -4,6 +4,7 @@
 
 ## TryHackMe
 - [CIA Triad](https://tryhackme.com/room/theciatriad)
+- [Crack the Hash](https://tryhackme.com/room/crackthehash)
 - [Cryptography Basics](https://tryhackme.com/room/cryptographybasics)
 - [Cryptography Concepts](https://tryhackme.com/room/cryptographyconcepts)
 - [Encryption - Crypto 101](https://tryhackme.com/room/encryptioncrypto101)

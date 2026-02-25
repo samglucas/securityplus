@@ -2,15 +2,21 @@
 
 # Procedural Documentation: Runbooks vs. Playbooks
 
-### 1. Runbooks
-* **Definition:** A highly technical, step-by-step document that outlines how to perform a specific, routine task or maintenance procedure. It is "operational" in nature and focuses on the *how*.
-* **Real-World Use Case:** A document titled "How to Patch the Production SQL Server" that lists every command to type, which services to stop, and how to verify the update was successful.
-* **Benefit:** Ensures that even if a senior admin is unavailable, a junior admin can follow the exact steps to complete a task without errors.
+### 1. Playbooks (The "What" and "Why")
+* **Definition:** A high-level, strategic document that outlines the overarching response plan for a specific scenario or threat. It focuses on the workflow, communication, and decision-making process.
+* **Goal:** To provide a consistent framework for managing complex situations (like a breach) from start to finish.
+* **Content:** * Identifying stakeholders (Who to call: Legal, PR, C-Suite).
+    * Compliance requirements (Reporting deadlines for GDPR/HIPAA).
+    * Decision gates (When to shut down a server vs. when to monitor).
+* **Example:** A "Ransomware Response Playbook" that dictates the phases of containment, eradication, and recovery.
 
-### 2. Playbooks
-* **Definition:** A high-level, strategic document that outlines the "plays" or general strategy an organization should follow in response to a specific scenario or threat. It is "strategic" and focuses on the *what* and *why*.
-* **Real-World Use Case:** A "Ransomware Response Playbook" that dictates who needs to be called (legal, PR, management), the general order of operations (containment before eradication), and the criteria for declaring the incident resolved.
-* **Benefit:** Provides a framework for decision-making during high-stress situations, ensuring that all regulatory and organizational requirements are met.
+### 2. Runbooks (The "How")
+* **Definition:** A granular, step-by-step technical guide for completing a specific task or resolving a specific alert. It is a "work instruction" that focuses on execution.
+* **Goal:** To automate or standardize routine technical procedures to reduce human error and save time.
+* **Content:** * Specific CLI commands to run.
+    * Configuration settings to verify.
+    * Scripts to execute.
+* **Example:** A runbook for "Resetting a Locked Admin Account" or "Patching a Linux Web Server."
 
 ## Key Differences
 

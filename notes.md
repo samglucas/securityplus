@@ -171,3 +171,77 @@
 ### 6. MACsec (802.1AE)
 * **Description:** An IEEE standard that provides point-to-point encryption and integrity on wired LANs at Layer 2.
 * **Mitigation:** Protects against eavesdropping, man-in-the-middle attacks, and replay attacks at the hardware level.
+
+# Intrusion Detection & Prevention Systems (IDPS)
+
+## Detection vs. Prevention
+
+### 1. IDS (Intrusion Detection System)
+* **Description:** A "passive" monitoring system that alerts administrators when it detects potentially malicious activity or policy violations. It does not stop the traffic itself.
+* **Benefit:** Provides visibility without the risk of accidentally blocking legitimate traffic (false positives).
+
+### 2. IPS (Intrusion Prevention System)
+* **Description:** An "active" system positioned in-line with network traffic. It can detect and automatically block or drop malicious packets in real-time.
+* **Benefit:** Immediate mitigation of known threats and automated response.
+
+## Detection Methodologies
+
+### 1. Signature Database
+* **Description:** Uses a library of known attack patterns (signatures) to identify threats. It is highly effective against known exploits but fails to detect "zero-day" attacks.
+* **Mitigation:** Requires constant updates to the signature database to remain effective.
+
+### 2. Heuristic (Behavioral/Anomaly) Analysis
+* **Description:** Identifies threats by looking for deviations from a baseline of "normal" behavior. It is excellent for catching new or evolving threats.
+* **Mitigation:** Can have a higher rate of false positives if the "normal" baseline is not well-defined.
+
+### 3. Stateful Protocol Analysis
+* **Description:** Deeply inspects protocols to ensure they are following their intended state and sequence (e.g., ensuring a TCP handshake follows the correct SYN-SYN/ACK-ACK flow).
+* **Mitigation:** Prevents attacks that exploit protocol-level vulnerabilities or out-of-order packets.
+
+## Deployment Scopes
+
+### 1. NIDS / NIPS (Network-Based)
+* **Description:** Deployed at strategic points in the network (like a span port or tap) to monitor all traffic flowing to and from all devices on that segment.
+* **Constraint:** Cannot inspect encrypted traffic unless it has access to the decryption keys.
+
+### 2. HIDS / HIPS (Host-Based)
+* **Description:** Software installed directly on an endpoint (server, workstation) to monitor system calls, file integrity, and local logs.
+* **Constraint:** Can be resource-intensive for the host and must be managed across every individual device.
+
+### 3. WIDS / WIPS (Wireless)
+* **Description:** Specialized systems that monitor the radio frequency spectrum for unauthorized access points (Rogue APs), jamming, or spoofing.
+* **Benefit:** Essential for maintaining the "airgap" and preventing physical-proximity wireless attacks.
+
+# Deception & Containment Techniques
+
+### 1. Honeypot
+* **Description:** A decoy system or network designed to look like a legitimate, high-value target (such as a database or file server). It exists solely to be probed, attacked, or compromised to gather intelligence on attacker methods.
+* **Types:** * **Low-Interaction:** Mimics basic services to gather simple data.
+    * **High-Interaction:** Runs actual operating systems and applications to observe complex attacker behavior.
+* **Mitigation/Benefit:** Diverts attackers away from production systems and provides early warning of a breach.
+
+### 2. DNS Sinkhole
+* **Description:** A DNS server configured to hand out false information (usually a non-routable IP address or a loopback address) for known malicious domains.
+* **How it Works:** When an infected host tries to contact its Command and Control (C2) server, the sinkhole intercepts the DNS request and redirects it, effectively "silencing" the malware.
+* **Mitigation/Benefit:** Prevents data exfiltration and allows security teams to identify infected internal hosts by monitoring who is attempting to reach the sinkholed addresses.
+
+# Email Security & Verification Technologies
+
+### 1. S/MIME (Secure/Multipurpose Internet Mail Extensions)
+* **Description:** A protocol used to digitally sign and encrypt email messages. It uses a public/private key pair to prove the sender's identity and ensure the message content hasn't been tampered with.
+* **Mitigation:** Protects against eavesdropping and impersonation by providing end-to-end encryption and non-repudiation.
+
+### 2. SPF (Sender Policy Framework)
+* **Description:** A DNS-based record that lists all authorized IP addresses and domains allowed to send email on behalf of your domain.
+* **How it Works:** The receiving server checks the SPF record in the DNS of the "From" address; if the sending IP isn't on the list, the email may be marked as spam or rejected.
+* **Mitigation:** Prevents unauthorized IP addresses from spoofing your domain in the "envelope" of the email.
+
+### 3. DKIM (DomainKeys Identified Mail)
+* **Description:** Adds a digital signature to the header of an email. This signature is verified using a public key located in the sender's DNS records.
+* **How it Works:** It ensures that the email's content (and specific headers) remained unchanged from the moment it left the sending server until it reached the recipient.
+* **Mitigation:** Prevents tampering with the email content while in transit.
+
+### 4. DMARC (Domain-based Message Authentication, Reporting, and Conformance)
+* **Description:** A policy framework that ties SPF and DKIM together. It tells the receiving mail server what to do (None, Quarantine, or Reject) if an email fails SPF or DKIM checks.
+* **How it Works:** It also provides a reporting mechanism so domain owners can see who is sending mail on their behalf and if they are failing authentication.
+* **Mitigation:** Provides a unified policy to stop spoofing and phishing attacks while providing visibility into mail flow.

@@ -20,6 +20,7 @@
 - [AES Encryption](https://aesencryption.net/)
 - [Ceaser Cipher](https://www.dcode.fr/caesar-cipher)
 - [CyberChef](https://gchq.github.io/CyberChef/)
+- [HashCat Wiki](https://hashcat.net/wiki/)
 - [National Vulnerability Database](https://nvd.nist.gov/)
 - [OSINT Framework](https://osintframework.com/)
 

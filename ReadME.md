@@ -9,8 +9,10 @@
 - [Cryptography Concepts](https://tryhackme.com/room/cryptographyconcepts)
 - [Encryption - Crypto 101](https://tryhackme.com/room/encryptioncrypto101)
 - [Introduction to Networking](https://tryhackme.com/room/introtonetworking)
+- [Intro to Detection Engineering](https://tryhackme.com/room/introtodetectionengineering)
 - [Networking Concepts](https://tryhackme.com/room/networkingconcepts)
 - [Nmap](https://tryhackme.com/room/furthernmap)
+- [Secure Network Architecture](https://tryhackme.com/room/introtosecurityarchitecture)
 - [WAF Introduction](https://tryhackme.com/room/wafintroduction)
 
 ## Tools

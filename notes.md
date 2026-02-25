@@ -490,3 +490,216 @@
 ### 5. SASE (Secure Access Service Edge)
 * **Definition:** A cloud-based framework that combines network security functions (like FWaaS, CASB, and Zero Trust) with wide-area networking (SD-WAN) to support the dynamic secure access needs of organizations.
 * **Real-World Use Case:** A remote workforce that accesses all corporate resources through a single cloud-native security provider, ensuring the same policy is applied whether they are at home or in the office.
+
+# Network Hardening & Advanced Infrastructure
+
+## Network Hardening Fundamentals
+**Definition:** The process of securing a network by reducing its surface of vulnerability through configuration changes and policy enforcement.
+
+### 1. Segmentation
+* **Description:** Dividing a larger network into smaller, isolated sections (subnets or VLANs) to contain potential breaches.
+* **Use Case:** Placing guest Wi-Fi on a separate VLAN from the corporate accounting servers to ensure a compromised guest device cannot "pivot" to sensitive data.
+
+### 2. Device Hardening
+* **Description:** Securing individual components (routers, switches, firewalls) by disabling unused services, changing default credentials, and updating firmware.
+* **Real-World Example:** Disabling HTTP and Telnet on a core switch and requiring SSH and HTTPS for all administrative access.
+
+### 3. Access Control
+* **Description:** Implementing the principle of **Least Privilege** to ensure users and devices only have access to the specific resources required for their roles.
+
+## Network Management Interfaces
+
+### 1. In-Band Management
+* **Definition:** Managing network devices through the same channels used for regular data traffic.
+* **Risk:** If the network experiences a broadcast storm or a DoS attack, the administrator may lose access to the device to fix it.
+
+### 2. Out-of-Band (OOB) Management
+* **Definition:** Using a dedicated, physically or logically separate path for management traffic (e.g., a console port or a dedicated management VLAN).
+* **Use Case:** Using a terminal server connected to the console ports of all rack equipment, allowing access even if the main data network is down.
+
+### 3. Jump Server (Jump Box)
+* **Definition:** A highly secured "intermediary" server that administrators must log into first before they can access other devices in a restricted network zone.
+* **Use Case:** An admin connects via SSH to a Jump Server in the DMZ, and from there, initiates a second connection to a sensitive database server in the internal network.
+
+## Advanced Network Structure
+
+### 1. Deperimeterization
+* **Definition:** The shift away from relying on a single "hard" outer boundary (firewall) to protect an internal network, acknowledging that the "perimeter" now extends to the cloud and mobile devices.
+
+### 2. Software-Defined Networking (SDN)
+**Definition:** An architecture that centralizes network control by decoupling the forwarding function from the control function.
+
+* **Control Plane:** The "brains" of the network that makes decisions about where traffic is sent.
+* **Data Plane (Forwarding Plane):** The "muscles" that actually move the packets based on the Control Plane's instructions.
+* **Northbound API:** Interfaces used by the SDN Controller to communicate with "higher-level" applications and business logic.
+* **Southbound API:** Interfaces (like OpenFlow) used by the Controller to send instructions down to the physical or virtual switches.
+
+### 3. Microsegmentation
+* **Definition:** A security technique that creates very granular zones in data centers and cloud environments to isolate workloads from one another, often down to the individual virtual machine level.
+
+### 4. Zero Trust Architecture (ZTA)
+**Definition:** A security model based on the principle of "Never Trust, Always Verify," where no user or device is trusted by default, even if they are inside the network.
+
+* **Subject/System:** The entity (user, device, or app) requesting access.
+* **Resource:** The target data or service being requested.
+* **Policy Enforcement Point (PEP):** The gatekeeper (like a firewall or gateway) that actually permits or denies the connection.
+* **Policy Engine (PE):** The component that makes the ultimate decision to grant access based on behavioral data and policy.
+* **Policy Administrator (PA):** The component that executes the decision of the PE by communicating with the PEP to open or close the "gate."
+
+### 5. SASE (Secure Access Service Edge)
+* **Definition:** A cloud-based framework that combines network security functions (like FWaaS, CASB, and Zero Trust) with wide-area networking (SD-WAN) to support the dynamic secure access needs of organizations.
+* **Real-World Use Case:** A remote workforce that accesses all corporate resources through a single cloud-native security provider, ensuring the same policy is applied whether they are at home or in the office.
+
+# AAA Framework & Authentication Attributes
+
+## The AAA Process
+**Definition:** A framework for intelligently controlling access to computer resources, enforcing policies, auditing usage, and providing the information necessary to bill for services.
+
+### 1. Identification
+* **Definition:** The process where a user or system claims an identity.
+* **Real-World Use Case:** Entering a **Username** into a login prompt or swiping an ID card. It is the "Hello, my name is..." phase.
+
+### 2. Authentication
+* **Definition:** The process of verifying the identity claimed during the identification phase.
+* **Real-World Use Case:** Entering a **Password** or providing a **Fingerprint**. This proves that the "Subject" is truly who they say they are.
+
+### 3. Authorization
+* **Definition:** The process of granting or denying access to specific resources once the identity is verified.
+* **Real-World Use Case:** After logging in, a user is allowed to **Read** a file but is denied permission to **Delete** it based on their job role.
+
+### 4. Accounting
+* **Definition:** The tracking of user activity and resource consumption while they are logged in.
+* **Real-World Use Case:** Reviewing **Log Files** to see exactly what time a user accessed a database and what changes were made. This provides accountability and an audit trail.
+
+## Authentication Attributes (Factors)
+**Definition:** The different categories of evidence used to prove a user's identity. Using more than one category results in **Multi-Factor Authentication (MFA)**.
+
+### 1. Something You Know (Knowledge Factor)
+* **Definition:** Information that the user must remember.
+* **Examples:** Passwords, PINs, or answers to security questions ("What was your first pet's name?").
+* **Risk:** Can be easily shared, guessed, or stolen via social engineering.
+
+### 2. Something You Have (Possession Factor)
+* **Definition:** A physical or digital object that the user must physically possess.
+* **Examples:** A **Smart Card**, a hardware token (like a YubiKey), or a One-Time Password (OTP) sent to a smartphone.
+* **Risk:** The item can be physically stolen or cloned.
+
+### 3. Something You Are (Inherence Factor)
+* **Definition:** A unique physical or behavioral characteristic of the user (Biometrics).
+* **Examples:** Fingerprints, Facial Recognition (FaceID), Retina scans, or Voice patterns.
+* **Risk:** If biometric data is breached, it cannot be "changed" like a password.
+
+# Passwordless Authentication & Secure Credentials
+
+## Digital Credentials
+**Definition:** A broad term for data that proves identity or authority in a digital environment, replacing the need for a manually entered password.
+
+### 1. Static Code / Passphrase
+* **Definition:** A long-term code or set of words that remains the same until manually changed.
+* **Use Case:** A "Master Password" for a password manager or a recovery code for an account.
+* **Security Note:** While stronger than a simple password, it is still a "Knowledge Factor" and vulnerable to theft.
+
+### 2. Digital Certificate
+* **Definition:** An electronic document used to prove the ownership of a public key. It is issued by a Trusted Certificate Authority (CA).
+* **Real-World Use Case:** A corporate laptop automatically authenticating to the office Wi-Fi because it has a unique machine certificate installed in its TPM (Trusted Platform Module).
+
+## One-Time Passwords (OTP)
+**Definition:** A password that is valid for only one login session or transaction.
+
+### 1. HOTP (HMAC-based One-Time Password)
+* **Definition:** An OTP based on a counter. The code changes only when a specific action occurs (like pressing a button on a token).
+* **Constraint:** If the button is pressed too many times without logging in, the token and the server can get "out of sync."
+
+### 2. TOTP (Time-based One-Time Password)
+* **Definition:** An OTP that is generated based on the current time. The code typically changes every 30 or 60 seconds.
+* **Real-World Use Case:** Using the **Google Authenticator** or **Microsoft Authenticator** app to get a 6-digit code for a login.
+
+
+## Physical Authentication Tools
+
+### 1. Authentication Token (Soft vs. Hard)
+* **Soft Token:** An app-based generator (like the ones mentioned in TOTP).
+* **Hard Token:** A dedicated physical device that displays a rotating code on a small screen.
+
+### 2. Security Key (FIDO2 / WebAuthn)
+* **Definition:** A hardware device (like a **YubiKey**) that uses public-key cryptography to authenticate the user to a service.
+* **Benefit:** Virtually immune to phishing because the key only communicates with the specific URL it was registered with.
+
+### 3. Smart Card
+* **Definition:** A physical card containing an embedded integrated circuit (chip) used for authentication and data storage.
+* **Real-World Use Case:** The **CAC (Common Access Card)** used by the U.S. Department of Defense or **PIV cards** used by federal employees to log into workstations and sign emails.
+# Biometric Error Types
+
+### 1. Type 1 Error: False Rejection Rate (FRR)
+* **Definition:** Occurs when a legitimate, authorized user is denied access by the biometric system. The system fails to recognize the "Subject" as themselves.
+* **Impact:** This is primarily an **insult to the user** and a productivity issue. While it doesn't decrease security, it causes significant frustration and "help desk" calls.
+* **Real-World Use Case:** You try to unlock your phone with your thumbprint, but because your hands are slightly damp, the phone refuses to unlock, forcing you to try again or use a PIN.
+
+### 2. Type 2 Error: False Acceptance Rate (FAR)
+* **Definition:** Occurs when an unauthorized person or an impostor is incorrectly identified as a valid user and granted access to the system.
+* **Impact:** This is a **security breach**. This is the most dangerous type of error because it allows a threat actor to bypass authentication entirely.
+* **Real-World Use Case:** A biometric door lock is poorly calibrated and allows a stranger to enter a secure data center because their facial structure was "close enough" to an authorized employee's profile.
+
+## The Crossover Error Rate (CER)
+**Definition:** The point where the False Rejection Rate and the False Acceptance Rate are equal. 
+
+* **Significance:** The CER is the most important metric for comparing the overall accuracy of different biometric systems. 
+* **The Goal:** A **lower CER** indicates a more accurate and reliable biometric system. Security administrators adjust the "sensitivity" of devices to find a balance that provides high security without causing too many false rejections.
+
+# Trust & Identity Integration
+
+## Attestation
+**Definition:** A mechanism where a device proves its integrity and "health" to a remote system by providing a cryptographically signed report of its hardware and software state.
+
+* **How it Works:** Usually involves a **TPM (Trusted Platform Module)**. The device sends a "quote" of its current configuration (boot loaders, OS kernel, firmware versions) to a verification server.
+* **Real-World Use Case:** A "Health Check" for a laptop. If the attestation report shows the device has been tampered with or is running an outdated, insecure kernel, the network denies it access to sensitive data until it is remediated.
+* **Benefit:** Ensures that you aren't just trusting a user, but also the physical health of the machine they are using.
+
+## Single Sign-On (SSO)
+**Definition:** An authentication scheme that allows a user to log in with a single set of credentials (username and password) to any of several related, yet independent, software systems.
+
+* **How it Works:** Once authenticated to a central "Identity Provider" (IdP), the user receives a **Token**. When they try to access a different application, the application trusts that token rather than asking for a password again.
+* **Real-World Use Case:** Logging into your corporate workstation and then being able to open your email, the HR portal, and the company's internal Wiki without ever seeing another login prompt.
+* **Benefit:** Reduces "password fatigue" for users and provides a centralized point for IT to revoke access if an employee leaves the company.
+
+## Federated Identities
+**Definition:** An arrangement that can be made between two or more trust domains to allow users of these domains to access applications and services using the same digital identity.
+
+* **How it Works:** It extends SSO beyond a single organization. It uses protocols like **SAML (Security Assertion Markup Language)** or **OIDC (OpenID Connect)** to pass "identity assertions" between different organizations.
+* **Real-World Use Case:** "Log in with Google" or "Log in with LinkedIn" on a third-party website. The third-party site trusts Google to verify who you are, so you don't have to create a brand-new account on their system.
+* **Benefit:** Simplifies user onboarding and allows organizations to collaborate securely without sharing their internal user databases.
+
+# Authentication Protocols
+
+## Point-to-Point Protocols (PPP)
+**Definition:** Protocols originally designed to establish a direct connection between two nodes (like a computer and an ISP over a phone line or a VPN tunnel).
+
+### 1. PAP (Password Authentication Protocol)
+* **Description:** A legacy authentication method where the client sends the username and password to the server in **clear text**.
+* **Status:** Obsolete and extremely insecure.
+* **Risk:** Anyone sniffing the network traffic can easily capture the credentials.
+
+### 2. CHAP (Challenge Handshake Authentication Protocol)
+* **Description:** A more secure method that uses a "three-way handshake" and a shared secret. The server sends a "challenge" to the client; the client responds with a hash of the challenge and the password.
+* **Benefit:** The actual password is never sent over the wire, protecting against eavesdropping.
+
+## EAP (Extensible Authentication Protocol)
+**Definition:** A framework (not a single protocol) used in wireless networks and point-to-point connections that allows for different authentication methods to be used.
+
+### 1. EAP-TLS (EAP-Transport Layer Security)
+* **Description:** One of the most secure versions of EAP. It requires **digital certificates** on both the client and the server for mutual authentication.
+* **Real-World Use Case:** High-security corporate Wi-Fi (802.1X). Both the laptop and the network server must "prove" their identity to each other using certificates.
+* **Benefit:** Extremely resistant to "Evil Twin" and credential-harvesting attacks.
+
+### 2. EAP-TTLS (EAP-Tunneled Transport Layer Security)
+* **Description:** Similar to EAP-TLS, but only the **server** requires a certificate. The client can authenticate using a simpler method (like a username and password) inside a secure TLS tunnel.
+* **Benefit:** Easier to deploy than EAP-TLS because you don't have to manage certificates for every individual user device.
+
+### 3. LEAP (Lightweight Extensible Authentication Protocol)
+* **Description:** A Cisco-proprietary version of EAP developed to address security flaws in WEP. 
+* **Status:** Deprecated. It is vulnerable to offline dictionary attacks.
+* **Legacy Use Case:** Older Cisco wireless infrastructure.
+
+### 4. EAP-FAST (EAP-Flexible Authentication via Secure Tunneling)
+* **Description:** A Cisco-designed replacement for LEAP. It establishes a secure tunnel using a **PAC (Protected Access Credential)** rather than relying on certificates.
+* **Benefit:** Provides a high level of security without the administrative overhead of a full PKI (Public Key Infrastructure) certificate rollout.

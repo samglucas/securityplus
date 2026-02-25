@@ -10,6 +10,7 @@
 - [Introduction to Networking](https://tryhackme.com/room/introtonetworking)
 - [Networking Concepts](https://tryhackme.com/room/networkingconcepts)
 - [Nmap](https://tryhackme.com/room/furthernmap)
+- [WAF Introduction](https://tryhackme.com/room/wafintroduction)
 
 ## Tools
 - [AES Encryption](https://aesencryption.net/)

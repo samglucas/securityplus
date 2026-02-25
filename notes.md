@@ -703,3 +703,69 @@
 ### 4. EAP-FAST (EAP-Flexible Authentication via Secure Tunneling)
 * **Description:** A Cisco-designed replacement for LEAP. It establishes a secure tunnel using a **PAC (Protected Access Credential)** rather than relying on certificates.
 * **Benefit:** Provides a high level of security without the administrative overhead of a full PKI (Public Key Infrastructure) certificate rollout.
+
+# Centralized AAA Protocols
+
+### 1. RADIUS (Remote Authentication Dial-In User Service)
+* **Description:** An open-standard, UDP-based protocol used to manage network access. It is the most common protocol used for 802.1X wireless authentication.
+* **Mechanism:** It combines **Authentication** and **Authorization** into a single step, while keeping **Accounting** separate. It only encrypts the *password* in the packet; the rest of the packet (including the username) is sent in clear text.
+* **Real-World Use Case:** A company using a RADIUS server (like Microsoft NPS or FreeRADIUS) to allow employees to log into the office Wi-Fi using their Active Directory credentials.
+* **Ports:** UDP 1812 (Authentication/Authorization) and UDP 1813 (Accounting).
+
+
+### 2. TACACS+ (Terminal Access Controller Access-Control System Plus)
+* **Description:** A Cisco-proprietary (though widely supported) TCP-based protocol designed for device administration.
+* **Mechanism:** Unlike RADIUS, it strictly separates **Authentication**, **Authorization**, and **Accounting** into three distinct processes. Most importantly, it **encrypts the entire payload** of the packet, providing better security for administrative sessions.
+* **Real-World Use Case:** A Network Engineer logging into a core router via SSH. TACACS+ allows the organization to control exactly which commands the engineer is allowed to run (Authorization) and logs every command they type (Accounting).
+* **Port:** TCP 49.
+
+### 3. Diameter
+* **Description:** The modern successor to RADIUS, designed to overcome its limitations. It uses TCP or SCTP for reliable transport and provides much better error handling and scalability.
+* **Mechanism:** It supports "Capability Exchange," allowing it to negotiate features with other nodes. It is widely used in cellular networks (LTE/5G) and large-scale ISP environments.
+* **Benefit:** Provides better security through mandatory IPsec or TLS support and is designed to handle the complex roaming requirements of modern mobile networks.
+* **Port:** TCP/SCTP 3868.
+
+### 4. Kerberos
+* **Description:** A ticket-based authentication protocol used to prove identity over non-secure networks. It is the default authentication protocol for Windows Active Directory.
+* **Mechanism:** Uses a trusted third party called a **Key Distribution Center (KDC)**. Instead of sending passwords, it issues "Tickets." A **Ticket Granting Ticket (TGT)** allows a user to request **Service Tickets** for specific resources.
+* **Real-World Use Case:** A user logging into their Windows workstation and automatically gaining access to a shared file server or an email server without being prompted for credentials again (Single Sign-On).
+* **Port:** TCP/UDP 88.
+
+# Modern Identity & Authorization Protocols
+
+## SAML (Security Assertion Markup Language)
+* **Definition:** An XML-based open standard for exchanging authentication and authorization data between an **Identity Provider (IdP)** and a **Service Provider (SP)**.
+* **Use Case:** Logging into a web application (like Salesforce or Zoom) using your company’s Active Directory credentials.
+* **Mechanism:** It uses a "trust relationship." The user authenticates with the IdP, which then hands the user a digital "passport" (SAML Assertion) to show to the SP.
+
+## OAuth 2.0 and OpenID Connect (OIDC)
+* **OAuth 2.0 (Authorization):** A framework that allows a third-party application to access a user's data without ever seeing their password (e.g., giving a printing app permission to access your Google Drive files).
+* **OpenID Connect (Authentication):** A simple identity layer built on top of the OAuth 2.0 protocol. It allows clients to verify the identity of the end-user based on the authentication performed by an Authorization Server.
+
+## The Four Roles of OAuth/OIDC
+To understand how these work, you have to look at the four specific players involved in the transaction:
+
+### 1. Resource Owner (The User)
+* **Definition:** The person who owns the data and has the power to grant access to it.
+* **Example:** You, the user, wanting to share your contact list with a new social app.
+
+### 2. Client Application
+* **Definition:** The application making the request to access the user's data.
+* **Example:** A mobile app, a website, or a background service.
+
+### 3. Resource Server
+* **Definition:** The server hosting the protected user data (the "Resource").
+* **Example:** Google Contacts, a Dropbox folder, or a GitHub repository.
+
+### 4. Authorization Server
+* **Definition:** The server that authenticates the Resource Owner and issues **Access Tokens** to the Client Application after getting the user's consent.
+* **Example:** The Google or Microsoft "Sign-In" screen that asks: *"Do you want to allow [App] to access your files?"*
+
+## Comparison: SAML vs. OAuth/OIDC
+
+| Feature | SAML | OAuth / OIDC |
+| :--- | :--- | :--- |
+| **Format** | XML | JSON / Tokens |
+| **Primary Goal** | Enterprise SSO | Web/Mobile App Authorization |
+| **Complexity** | High (Harder to configure) | Low (Developer-friendly) |
+| **Transport** | Browser-heavy (HTTP POST) | API-centric |

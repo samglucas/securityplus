@@ -1,8 +1,10 @@
 # Security+ Resources
 
 ## TryHackMe
+[CIA Triad](https://tryhackme.com/room/theciatriad)<br>
 [Cryptography Basics](https://tryhackme.com/room/cryptographybasics)<br>
 [Cryptography Concepts](https://tryhackme.com/room/cryptographyconcepts)<br>
+[Encryption - Crypto 101](https://tryhackme.com/room/encryptioncrypto101)<br>
 [Introduction to Networking](https://tryhackme.com/room/introtonetworking)<br>
 [Nmap](https://tryhackme.com/room/furthernmap)<br>
 

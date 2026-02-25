@@ -12,4 +12,6 @@
 
 ## Practice Questions
 [Destination Cert](https://destcert.com/destcert-app/)<br>
-[YouTube Practice Questions](https://youtube.com/playlist?list=PLLhk30tXRjJSiOaq0OcsbMP7jyvTHzmix&si=ek_fr6463RGLxFPV)
+[YouTube Practice Questions 1](https://youtube.com/playlist?list=PLLhk30tXRjJSiOaq0OcsbMP7jyvTHzmix&si=ek_fr6463RGLxFPV)
+[YouTube Practice Questions 2](https://youtube.com/playlist?list=PLT8yTjyUGL2xwaWl2ermpNzuQxzoeX6zD&si=_uiuYVjjtWvf65qw)
+[YouTube Practice Questions 3](https://youtu.be/yPqSLJG8Rt0?si=0jvEtB5aPoR_RY8I)

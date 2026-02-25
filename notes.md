@@ -1,5 +1,53 @@
 # Security+ Class Notes
 
+# Business & Supply Chain Agreements
+
+## Business Agreements
+**Definition:** Formal arrangements between organizations that define how they will interact, share data, or collaborate on projects.
+
+### 1. MOU (Memorandum of Understanding)
+* **Description:** A non-binding agreement that outlines the intent of two or more parties to work together. It establishes a "meeting of the minds."
+* **Use Case:** Two companies exploring a potential partnership for a new software integration before signing a formal contract.
+
+### 2. MOA (Memorandum of Agreement)
+* **Description:** A more formal version of an MOU. While it can still be non-binding, it often contains specific terms, responsibilities, and conditional agreements.
+* **Use Case:** A local government and a non-profit agreeing on how to manage a community center, detailing who pays for utilities and maintenance.
+
+### 3. ISA (Interconnection Security Agreement)
+* **Description:** A technical document that specifies the security requirements for connecting two different networks or systems.
+* **Use Case:** A federal agency connecting its database to a private contractor's network; the ISA defines the encryption standards and technical controls required for the link.
+
+### 4. BPA (Blanket Purchase Agreement)
+* **Description:** A simplified method of filling repetitive needs for supplies or services by establishing "charge accounts" with qualified sources.
+* **Use Case:** An IT department that regularly buys Dell monitors. Instead of a new contract for every order, they use a BPA to purchase them at a pre-negotiated price as needed.
+
+### 5. NDA (Non-Disclosure Agreement)
+* **Description:** A legal contract that prohibits parties from sharing sensitive information or trade secrets disclosed during their relationship.
+* **Use Case:** An employer hiring a new developer who will have access to the company’s proprietary source code.
+
+## Supply Chain Agreements
+**Definition:** Documents that govern the relationship between a buyer and a seller/vendor, focusing on performance, expectations, and procurement.
+
+### 1. SLA (Service Level Agreement)
+* **Description:** A contract that defines the specific level of service expected from a vendor, often including "uptime" percentages and response times.
+* **Use Case:** A cloud provider promising "99.9% uptime." If the service goes down for more than a few minutes a month, the SLA dictates the financial credit the customer receives.
+
+### 2. MSA (Master Service Agreement)
+* **Description:** An overarching contract that governs future transactions or future agreements. It settles general terms like payment, indemnification, and dispute resolution.
+* **Use Case:** A consulting firm signs an MSA with a client so that every new project (Statement of Work) doesn't need a full legal review of the "fine print."
+
+### 3. SOW (Statement of Work)
+* **Description:** A document that specifies the exact work to be performed, including deliverables, timelines, and pricing for a specific project.
+* **Use Case:** An IT project to migrate 500 mailboxes to Office 365. The SOW lists exactly which mailboxes are included and the deadline for completion.
+
+### 4. RFQ (Request for Quote)
+* **Description:** A document used to invite suppliers to bid on specific products or services where price is the main factor.
+* **Use Case:** A company needs 1,000 standard CAT6 ethernet cables and wants to see which vendor can provide them for the lowest cost.
+
+### 5. RFP (Request for Proposal)
+* **Description:** A document used to solicit proposals where the solution is complex and factors other than price (like technical expertise or project plan) are evaluated.
+* **Use Case:** A city government looking for a vendor to build a new municipal cybersecurity operations center (SOC).
+
 # Comparison of Cryptographic Algorithms
 
 | Algorithm Type | Algorithm Name | Real-World Example / Use Case |

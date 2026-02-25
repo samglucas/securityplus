@@ -105,3 +105,33 @@
 ### 3. Pass the Hash (PtH)
 * **Description:** An attacker captures a stored password hash and uses it directly to authenticate to a remote server or service without ever needing to "crack" it into plaintext.
 * **Mitigation:** Implement **Least Privilege**, disable NTLM where possible in favor of Kerberos, and use tools like **LAPS** (Local Administrator Password Solution).
+
+## Wireless & Bluetooth attacks
+
+### 1. Wireless Reconnaissance
+* **Description:** The process of discovering and mapping wireless networks, identifying SSIDs, signal strengths, encryption types (WPA2/WPA3), and connected clients using tools like Aircrack-ng or WiFite.
+* **Mitigation:** Disable SSID broadcasting (though this is not a strong defense), use strong encryption, and monitor for unauthorized scanning activity.
+
+### 2. Rogue AP (Access Point)
+* **Description:** An unauthorized wireless access point connected to a secure network without the administrator's knowledge, often used to bypass perimeter security.
+* **Mitigation:** Use **Wireless Intrusion Prevention Systems (WIPS)** and perform regular physical and logical site audits.
+
+### 3. Evil Twin
+* **Description:** A fraudulent Wi-Fi access point that appears to be a legitimate one (sharing the same SSID), designed to trick users into connecting so the attacker can intercept their traffic.
+* **Mitigation:** Use **Certificate-based authentication** (EAP-TLS) and educate users to avoid connecting to "Open" public Wi-Fi without a VPN.
+
+### 4. Disassociation Attack
+* **Description:** Sending spoofed disassociation frames to a client, forcing them to disconnect from the legitimate AP. This is often used to capture WPA handshakes or force a user onto an Evil Twin.
+* **Mitigation:** Implement **802.11w (Management Frame Protection)** to encrypt management frames.
+
+### 5. Jamming
+* **Description:** A Denial of Service (DoS) attack that uses a radio frequency (RF) transmitter to flood the wireless spectrum with noise, preventing legitimate devices from communicating.
+* **Mitigation:** Locate the source of interference using a spectrum analyzer; use wired connections for critical infrastructure.
+
+### 6. Bluejacking
+* **Description:** Sending unsolicited messages (like digital business cards) to Bluetooth-enabled devices. It is generally a nuisance rather than a data-theft attack.
+* **Mitigation:** Set Bluetooth devices to **"Non-discoverable"** mode when not in use.
+
+### 7. Bluesnarfing
+* **Description:** The unauthorized access of information (contacts, photos, emails) from a wireless device through a Bluetooth connection.
+* **Mitigation:** Keep device firmware updated, use strong pairing PINs, and disable Bluetooth in public spaces if not needed.

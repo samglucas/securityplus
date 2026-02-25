@@ -6,8 +6,8 @@
 [Cryptography Basics](https://tryhackme.com/room/cryptographybasics)
 
 ## Tools
-[CyberChef](https://gchq.github.io/CyberChef/)
-[National Vulnerability Database](https://nvd.nist.gov/)
+[CyberChef](https://gchq.github.io/CyberChef/)<br>
+[National Vulnerability Database](https://nvd.nist.gov/)<br>
 [OSINT Framework](https://osintframework.com/)
 
 ## Practice Questions

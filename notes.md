@@ -297,10 +297,6 @@
 * **Layer 2: Data Link** – Physical addressing and switching (MAC, Ethernet).
 * **Layer 1: Physical** – Cables, bits, and electrical signals.
 
-
-
----
-
 ## Web Security & Encryption
 
 ### 1. SSL/TLS & HTTPS
@@ -387,3 +383,49 @@
 * **Description:** A web page that is displayed to newly connected users before they are granted broader access to the internet.
 * **Real-World Use Case:** Airport or hotel Wi-Fi where you must enter a room number, email address, or accept "Terms of Service" before the internet starts working.
 * **Security Note:** Often used in conjunction with an **Open** or **Transparent Proxy**.
+
+# Virtual Private Networks (VPN)
+
+## VPN Connectivity Types
+
+### 1. Full Tunnel
+* **Description:** All network traffic—including internet browsing and internal resources—is routed through the encrypted VPN tunnel.
+* **Real-World Use Case:** A government contractor working from a coffee shop. By using a full tunnel, the organization ensures that even "public" web traffic is filtered by the corporate firewall and protected from local eavesdropping.
+* **Benefit:** Maximum security and centralized monitoring of all data.
+
+### 2. Split Tunnel
+* **Description:** Only traffic destined for the internal corporate network is sent through the VPN tunnel. Regular internet traffic (like YouTube or Netflix) goes out through the user's local internet connection.
+* **Real-World Use Case:** Remote employees using bandwidth-heavy video conferencing apps like Zoom. Split tunneling prevents the corporate network from being bogged down by non-work-related traffic.
+* **Benefit:** Conserves corporate bandwidth and reduces latency for the user.
+
+### 3. Always-On VPN
+* **Description:** The VPN connection is automatically established as soon as the device has an internet connection, without requiring the user to manually log in or "connect."
+* **Real-World Use Case:** Corporate-managed laptops. To maintain security compliance, the device is always "inside" the corporate perimeter, allowing IT to push updates and monitor the device regardless of its location.
+
+## VPN Technologies & Protocols
+
+### 1. GRE (Generic Routing Encapsulation)
+* **Description:** A tunneling protocol that can encapsulate a wide variety of network layer protocols inside virtual point-to-point links. 
+* **Security Note:** GRE by itself is **unencrypted**. It is frequently paired with **IPSec** to provide security.
+* **Use Case:** Connecting two sites to pass routing information (like OSPF or EIGRP) that standard IPSec cannot handle alone.
+
+### 2. PPTP (Point-to-Point Tunneling Protocol) - Port 1723
+* **Description:** One of the oldest VPN protocols. It uses a control channel over TCP and a GRE tunnel to operate.
+* **Security Note:** Now considered **obsolete and insecure** due to vulnerabilities in its authentication (MS-CHAPv2).
+* **Status:** Avoid in modern environments.
+
+### 3. L2TP/IPSec (Layer 2 Tunneling Protocol) - Port 1701
+* **Description:** L2TP provides the "tunnel," but since it doesn't offer encryption, it is almost always paired with **IPSec** for security.
+* **Use Case:** A common alternative for client-to-site VPNs when SSL VPNs are not used.
+
+### 4. IKEv2/IPSec
+* **Description:** A robust VPN protocol that excels at maintaining a connection when a user switches between networks (e.g., moving from Wi-Fi to 5G).
+* **Benefit:** Extremely fast and stable; highly recommended for mobile device VPN clients.
+
+### 5. SSL/TLS VPN - Port 443
+* **Description:** Uses the standard web encryption (HTTPS) to create a VPN tunnel. It can be "clientless" (accessed via a web browser) or use a dedicated client (like AnyConnect).
+* **Benefit:** Easily bypasses most firewalls since Port 443 is almost always open.
+
+### 6. SSH Tunneling - Port 22
+* **Description:** Using an SSH connection to "wrap" other protocols (like HTTP or VNC) to send them securely through an encrypted tunnel.
+* **Real-World Use Case:** A developer securely accessing a database port on a remote server that is not exposed to the public internet.

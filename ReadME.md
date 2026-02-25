@@ -11,6 +11,7 @@
 - [Introduction to Networking](https://tryhackme.com/room/introtonetworking)
 - [Intro to Detection Engineering](https://tryhackme.com/room/introtodetectionengineering)
 - [Networking Concepts](https://tryhackme.com/room/networkingconcepts)
+- [Network Traffic Basics](https://tryhackme.com/room/networktrafficbasics)
 - [Nmap](https://tryhackme.com/room/furthernmap)
 - [Secure Network Architecture](https://tryhackme.com/room/introtosecurityarchitecture)
 - [WAF Introduction](https://tryhackme.com/room/wafintroduction)

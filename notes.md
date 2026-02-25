@@ -1,6 +1,6 @@
 # Security+ Class Notes
 
-## Comparison of Cryptographic Algorithms
+# Comparison of Cryptographic Algorithms
 
 | Algorithm Type | Algorithm Name | Real-World Example / Use Case |
 | :--- | :--- | :--- |
@@ -14,7 +14,7 @@
 | **Asymmetric** | Elliptic Curve Cryptography (ECC) | **Cryptocurrencies:** Bitcoin and Ethereum use ECC (specifically Secp256k1) to generate public/private keys and sign transactions. |
 | **Asymmetric** | Diffie-Hellman (DH) | **Secure Key Exchange:** Allows two parties (like your phone and a server) to create a shared secret key over an insecure channel without ever sending the key itself. |
 
-## Hashing Algorithms Comparison
+# Hashing Algorithms Comparison
 
 | Algorithm | Real-World Example / Use Case |
 | :--- | :--- |
@@ -24,7 +24,7 @@
 | **SHA-3** | **Next-Gen Security:** Often used as a high-security alternative to SHA-2 in hardware implementations and sensitive government applications because its internal "Sponge" design is resistant to different types of attacks. |
 | **RIPEMD (e.g., RIPEMD-160)** | **Bitcoin Addresses:** Used in combination with SHA-256 to create shorter, manageable public wallet addresses for cryptocurrencies. |
 
-## Network Redirection Attacks & Mitigations
+# Network Redirection Attacks & Mitigations
 
 ### 1. ARP Poisoning
 * **Description:** Sending falsified ARP messages over a local area network to link an attacker's MAC address with the IP address of a legitimate gateway.
@@ -50,7 +50,7 @@
 * **Description:** Attacking a switch via "switch spoofing" or "double tagging" to gain access to traffic on other VLANs that should be restricted.
 * **Mitigation:** Disable **Dynamic Trunking Protocol (DTP)**, ensure the native VLAN is not used for user traffic, and explicitly prune unused VLANs from trunks.
 
-## On-Path Techniques & Mitigations
+# On-Path Techniques & Mitigations
 
 ### 1. Replay Attack
 * **Description:** An attacker captures valid network traffic (like an authentication packet) and later re-transmits it to the server to gain unauthorized access or repeat a transaction.
@@ -106,7 +106,7 @@
 * **Description:** An attacker captures a stored password hash and uses it directly to authenticate to a remote server or service without ever needing to "crack" it into plaintext.
 * **Mitigation:** Implement **Least Privilege**, disable NTLM where possible in favor of Kerberos, and use tools like **LAPS** (Local Administrator Password Solution).
 
-## Wireless & Bluetooth attacks
+# Wireless & Bluetooth attacks
 
 ### 1. Wireless Reconnaissance
 * **Description:** The process of discovering and mapping wireless networks, identifying SSIDs, signal strengths, encryption types (WPA2/WPA3), and connected clients using tools like Aircrack-ng or WiFite.

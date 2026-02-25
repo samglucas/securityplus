@@ -429,3 +429,64 @@
 ### 6. SSH Tunneling - Port 22
 * **Description:** Using an SSH connection to "wrap" other protocols (like HTTP or VNC) to send them securely through an encrypted tunnel.
 * **Real-World Use Case:** A developer securely accessing a database port on a remote server that is not exposed to the public internet.
+
+# Network Hardening & Advanced Infrastructure
+
+## Network Hardening Fundamentals
+**Definition:** The process of securing a network by reducing its surface of vulnerability through configuration changes and policy enforcement.
+
+### 1. Segmentation
+* **Description:** Dividing a larger network into smaller, isolated sections (subnets or VLANs) to contain potential breaches.
+* **Use Case:** Placing guest Wi-Fi on a separate VLAN from the corporate accounting servers to ensure a compromised guest device cannot "pivot" to sensitive data.
+
+### 2. Device Hardening
+* **Description:** Securing individual components (routers, switches, firewalls) by disabling unused services, changing default credentials, and updating firmware.
+* **Real-World Example:** Disabling HTTP and Telnet on a core switch and requiring SSH and HTTPS for all administrative access.
+
+### 3. Access Control
+* **Description:** Implementing the principle of **Least Privilege** to ensure users and devices only have access to the specific resources required for their roles.
+
+
+## Network Management Interfaces
+
+### 1. In-Band Management
+* **Definition:** Managing network devices through the same channels used for regular data traffic.
+* **Risk:** If the network experiences a broadcast storm or a DoS attack, the administrator may lose access to the device to fix it.
+
+### 2. Out-of-Band (OOB) Management
+* **Definition:** Using a dedicated, physically or logically separate path for management traffic (e.g., a console port or a dedicated management VLAN).
+* **Use Case:** Using a terminal server connected to the console ports of all rack equipment, allowing access even if the main data network is down.
+
+### 3. Jump Server (Jump Box)
+* **Definition:** A highly secured "intermediary" server that administrators must log into first before they can access other devices in a restricted network zone.
+* **Use Case:** An admin connects via SSH to a Jump Server in the DMZ, and from there, initiates a second connection to a sensitive database server in the internal network.
+
+
+## Advanced Network Structure
+
+### 1. Deperimeterization
+* **Definition:** The shift away from relying on a single "hard" outer boundary (firewall) to protect an internal network, acknowledging that the "perimeter" now extends to the cloud and mobile devices.
+
+### 2. Software-Defined Networking (SDN)
+**Definition:** An architecture that centralizes network control by decoupling the forwarding function from the control function.
+
+* **Control Plane:** The "brains" of the network that makes decisions about where traffic is sent.
+* **Data Plane (Forwarding Plane):** The "muscles" that actually move the packets based on the Control Plane's instructions.
+* **Northbound API:** Interfaces used by the SDN Controller to communicate with "higher-level" applications and business logic.
+* **Southbound API:** Interfaces (like OpenFlow) used by the Controller to send instructions down to the physical or virtual switches.
+
+### 3. Microsegmentation
+* **Definition:** A security technique that creates very granular zones in data centers and cloud environments to isolate workloads from one another, often down to the individual virtual machine level.
+
+### 4. Zero Trust Architecture (ZTA)
+**Definition:** A security model based on the principle of "Never Trust, Always Verify," where no user or device is trusted by default, even if they are inside the network.
+
+* **Subject/System:** The entity (user, device, or app) requesting access.
+* **Resource:** The target data or service being requested.
+* **Policy Enforcement Point (PEP):** The gatekeeper (like a firewall or gateway) that actually permits or denies the connection.
+* **Policy Engine (PE):** The component that makes the ultimate decision to grant access based on behavioral data and policy.
+* **Policy Administrator (PA):** The component that executes the decision of the PE by communicating with the PEP to open or close the "gate."
+
+### 5. SASE (Secure Access Service Edge)
+* **Definition:** A cloud-based framework that combines network security functions (like FWaaS, CASB, and Zero Trust) with wide-area networking (SD-WAN) to support the dynamic secure access needs of organizations.
+* **Real-World Use Case:** A remote workforce that accesses all corporate resources through a single cloud-native security provider, ensuring the same policy is applied whether they are at home or in the office.

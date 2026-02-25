@@ -1,4 +1,6 @@
 # Security+ Resources
+* [AI Prompts](https://github.com/samglucas/securityplus/blob/main/AI%20Prompt%20Tips.md)
+* [Notes](https://github.com/samglucas/securityplus/blob/main/notes.md)
 
 ## TryHackMe
 [CIA Triad](https://tryhackme.com/room/theciatriad)<br>

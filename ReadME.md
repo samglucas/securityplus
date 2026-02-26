@@ -2,7 +2,7 @@
 - [AI Prompts](https://github.com/samglucas/securityplus/blob/main/AI%20Prompt%20Tips.md)
 - [Notes](https://github.com/samglucas/securityplus/blob/main/notes.md)
 
-## TryHackMey 
+## TryHackMe
 - [Active Directory Basics](https://tryhackme.com/room/winadbasics)
 - [CIA Triad](https://tryhackme.com/room/theciatriad)
 - [Crack the Hash](https://tryhackme.com/room/crackthehash)

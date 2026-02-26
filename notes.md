@@ -1246,3 +1246,47 @@ To understand how these work, you have to look at the four specific players invo
 * **Labeling:** Every document or file must be clearly marked with its classification level (often in the header and footer).
 * **Storage:** Top Secret data might require a GSA-approved safe or a SCIF (Sensitive Compartmented Information Facility), while Unclassified data can be stored on standard encrypted drives.
 * **Destruction:** Higher classification levels require stricter destruction methods, such as cross-cut shredding, pulping, or degaussing.
+
+# Data Types, Sovereignty, and Controls
+
+## 1. Data Types & Intellectual Property (IP)
+**Definition:** Categories of information that require specific legal protections or handling due to their value or sensitivity.
+
+* **Copyright:** Legal protection for "original works of authorship," such as software code, training manuals, and videos. It protects the *expression* of an idea, not the idea itself.
+* **Patent:** A government grant giving an inventor exclusive rights to an invention (a process, machine, or manufacture) for a limited time.
+* **Trade Secret:** Proprietary information that provides a competitive edge and is kept confidential (e.g., the Coca-Cola formula or a specific search algorithm).
+* **Financial Information:** Sensitive data related to an organization's monetary assets, tax records, or credit card data (PCI DSS).
+* **Legal Information:** Data subject to attorney-client privilege, regulatory filings, or ongoing litigation records.
+* **Private Data:** Any information that can identify an individual (PII), such as SSNs, home addresses, or medical records (PHI).
+
+## 2. Data Sovereignty
+* **Definition:** The concept that digital data is subject to the **laws and regulations of the country** in which it is physically located.
+* **Real-World Impact:** If a company in **Virginia** stores customer data in a data center in Germany, that data must comply with the EU's GDPR, regardless of where the company is headquartered.
+
+## 3. Data Policies
+**Definition:** High-level frameworks that dictate how an organization manages its information assets.
+
+* **Classification:** The process of labeling data (Top Secret, Confidential, etc.) to determine its level of protection.
+* **Ownership:** Identifying the "Data Owner" (usually a senior executive) who is ultimately responsible for the security and use of a specific data set.
+* **Governance:** The overall management of data availability, usability, integrity, and security based on internal standards and policies.
+* **Retention:** Defining how long data must be kept (e.g., "7 years for tax records") before it can be destroyed.
+* **Disposal:** Outlining the approved methods for destroying data (shredding, degaussing, or wiping) once the retention period ends.
+
+## 4. Technical & Operational Data Controls
+**Definition:** The specific tools and methods used to enforce the data policies mentioned above.
+
+### Access & Network Controls
+* **Access Control:** Using permissions (ACLs) to ensure only authorized users can view or edit data.
+* **Segmentation:** Dividing a network into smaller zones to prevent an attacker from moving laterally between sensitive data sets.
+* **Geographic Restrictions:** Using **Geofencing** or **IP-blocking** to prevent data access from specific high-risk countries.
+
+### Data Integrity & Protection
+* **Labeling and Tagging:** Applying digital "metadata" tags to files so security tools (like DLP) can identify and protect sensitive info automatically.
+* **Encryption:** Scrambling data so it is unreadable without a key. Used for **Data at Rest** and **Data in Motion**.
+* **Hashing:** Creating a unique digital "fingerprint" of a file to verify its **Integrity**. If one bit changes, the hash changes.
+* **Obfuscation:** Making data difficult for humans to understand (e.g., masking a credit card number: `****-****-****-1234`).
+* **Digital Rights Management (DRM):** Tools that control how a user can use a file (e.g., preventing a user from printing or forwarding a sensitive email).
+
+### Data Loss Prevention (DLP)
+* **Definition:** Software that monitors for and prevents the unauthorized transfer of sensitive data outside the organization.
+* **Example:** A DLP agent on a laptop blocks an employee from uploading a "Confidential" spreadsheet to a personal Dropbox account.

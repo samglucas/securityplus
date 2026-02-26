@@ -1231,3 +1231,290 @@ To understand how these work, you have to look at the four specific players invo
 ### Data Loss Prevention (DLP)
 * **Definition:** Software that monitors for and prevents the unauthorized transfer of sensitive data outside the organization.
 * **Example:** A DLP agent on a laptop blocks an employee from uploading a "Confidential" spreadsheet to a personal Dropbox account.
+
+# Privacy, Hardware Security, and Data Destruction
+
+## 1. Privacy-Enhancing Techniques (PETs)
+**Definition:** Technical methods used to protect personal data by reducing the linkability between the data and the individual.
+
+* **Anonymization:** Permanently removing all personally identifiable information (PII) so the individual cannot be re-identified. This process is irreversible.
+* **Pseudo-Anonymization:** Replacing private identifiers with "pseudonyms" (fake identifiers). Unlike anonymization, this is **reversible** if you have access to the original mapping key.
+* **Tokenization:** Replacing sensitive data (like a credit card number) with a non-sensitive equivalent called a "token." The actual data is stored in a secure "vault," and the token is used for transactions.
+* **Data Scrubbing:** The process of removing or modifying specific data elements (like names or addresses) from a dataset to protect privacy before sharing it for research or testing.
+* **Data Masking:** Hiding original data with modified content (e.g., showing only the last four digits of a Social Security Number: `XXX-XX-1234`).
+
+## 2. Non-Technical Privacy Controls
+**Definition:** Administrative and procedural safeguards that govern how an organization handles sensitive information.
+
+* **Privacy Impact Assessment (PIA):** A formal study conducted to identify and reduce the privacy risks of a new project or system before it is launched.
+* **Data Minimization:** The principle of only collecting the specific data necessary to fulfill a task. If you don't need a user's date of birth to provide a service, don't ask for it.
+* **Retention and Disposal:** Policies that dictate how long data should be kept and the specific, secure way it must be destroyed once it is no longer needed.
+* **Breach Notification:** A legal and procedural requirement to notify affected individuals and regulatory bodies (like the OCR or State Attorney General) if their private data is compromised.
+
+## 3. Privacy Notices and Agreements
+* **Privacy Notice:** A public-facing document that informs users how an organization collects, uses, shares, and protects their personal information.
+* **Terms and Conditions (T&C) Agreement:** A legal contract between the service provider and the user that outlines the rules for using the service, including liability and acceptable use.
+
+## 4. Disk Encryption Methods
+**Definition:** Protecting "Data at Rest" by scrambling the contents of a storage device.
+
+* **Stacked File System:** Encryption that happens at the file or directory level. Files are encrypted before being written to the disk.
+* **Block Device Encryption:** Encrypts the entire storage partition or disk as a single "block." The most common example is **Full Disk Encryption (FDE)**.
+* **Self-Encrypting Drive (SED):** A hard drive or SSD with a built-in controller that automatically encrypts all data written to the media at the hardware level.
+
+## 5. Encryption Hardware
+* **Smart Card:** A physical card with an embedded microchip used for authentication and storing digital certificates or cryptographic keys.
+* **Trusted Platform Module (TPM):** A dedicated chip on a computer's motherboard used to store cryptographic keys, passwords, and digital certificates securely. It provides a "Hardware Root of Trust."
+* **Hardware Security Module (HSM):** A high-end, external physical device used to safeguard and manage digital keys for strong authentication and cryptoprocessing in enterprise environments.
+* **Secure Enclave:** A specialized, isolated area within a processor (CPU/SoC) that handles sensitive data (like biometric info or encryption keys) separately from the main Operating System.
+
+## 6. Secure Media Destruction
+**Definition:** Physical methods used to ensure that data on decommissioned hardware can never be recovered.
+
+* **Pulverizing:** Using heavy machinery to grind a hard drive or storage media into tiny, unrecognizable pieces or dust.
+* **Pulping:** A process specifically for paper documents where the paper is mixed with water and chemicals to break down the fibers into a liquid slurry.
+* **Incineration:** Using high-temperature furnaces to burn storage media (tapes, paper, or optical discs) until they are reduced to ash.
+
+# System Hardening Framework
+
+## 1. Least Functionality
+**Definition:** The practice of configuring an information system to provide only essential capabilities and specifically prohibiting or restricting the use of unnecessary functions, ports, protocols, and services.
+* **Action:** Disable unused Windows services (like Print Spooler on a File Server) or uninstall unnecessary software (like games or trialware) from a base image.
+* **Benefit:** If a service isn't running, it cannot be exploited by an attacker.
+
+### 2. Secure Configuration
+**Definition:** The use of established security "baselines" to ensure a system is set up according to industry best practices rather than factory defaults.
+* **Baselines:** Using **CIS (Center for Internet Security)** Benchmarks or **STIGs (Security Technical Implementation Guides)** to configure OS settings.
+* **Action:** Changing default admin passwords, disabling guest accounts, and configuring session timeouts.
+
+### 3. Application Control
+**Definition:** Preventing unauthorized applications from executing on a host.
+* **Allowlisting:** Only specifically approved applications are allowed to run. (High security, high administrative overhead).
+* **Blocklisting:** All applications are allowed except those specifically identified as malicious. (Lower security, easier to manage).
+* **Tools:** Windows AppLocker or Windows Defender Application Control (WDAC).
+
+### 4. Hardware Assurance Features
+**Definition:** Using physical hardware components to verify the integrity of the system during boot and operation.
+* **Trusted Platform Module (TPM):** Stores cryptographic keys and ensures the boot process hasn't been tampered with.
+* **Secure Boot:** A UEFI feature that ensures only digitally signed, "trusted" bootloaders and drivers can load during startup.
+* **Hardware Root of Trust:** A secure starting point in the hardware that is inherently trusted.
+
+## 5. Host-Level Security Controls
+
+### Account Security
+* **Least Privilege:** Users only have the permissions necessary for their job.
+* **MFA (Multi-Factor Authentication):** Requiring more than just a password for access.
+* **Password Complexity:** Enforcing length and character requirements via Group Policy.
+
+### Security Software
+* **EDR (Endpoint Detection and Response):** Modern security tools that monitor behavior, not just file signatures (like traditional AV).
+* **HIPS/HIDS:** Host-based Intrusion Prevention/Detection Systems that monitor for suspicious system calls or changes to critical files.
+
+### Patching (Update Management)
+* **Definition:** Regularly applying security updates to the OS and third-party applications.
+* **Staging:** Testing patches in a "Dev" environment before pushing them to "Production" to ensure they don't break mission-critical apps.
+* **Action:** Using tools like **WSUS (Windows Server Update Services)** or **SCCM** to centralize patching.
+
+### Logging and Monitoring
+* **Definition:** Recording system events (Logons, File Access, Errors) to detect and investigate security incidents.
+* **Local Logs:** Windows Event Viewer (System, Security, Application logs) or Linux `/var/log`.
+* **Centralized Logging:** Shipping logs to a **SIEM (Security Information and Event Management)** like Splunk or Azure Sentinel for real-time analysis.
+
+# Application and Hardware Security Frameworks
+
+## 1. Application Control
+**Definition:** A security practice used to prevent unauthorized or malicious programs from executing. It is a critical part of a "Defense in Depth" strategy.
+
+### Blacklisting (Blocklisting)
+* **Definition:** A "permissive" approach where all applications are allowed to run **except** those specifically identified as malicious or unauthorized.
+* **Risk:** High. It relies on the administrator knowing about every threat in advance. If a new piece of malware (Zero-Day) isn't on the list, it will run.
+* **Benefit:** Low administrative overhead; users can generally install what they need without IT intervention.
+
+### Whitelisting (Allowlisting)
+* **Definition:** A "restrictive" approach where **no** applications are allowed to run except those specifically approved by the administrator.
+* **Benefit:** Extremely high security. Even if an attacker successfully drops malware onto the system, it will fail to execute because it isn't on the "Allowed" list.
+* **Trade-off:** High administrative overhead. IT must vet and approve every single application and update used by the organization.
+
+## 2. Code Signing
+* **Definition:** The process of digitally signing executables and scripts to confirm the software author and guarantee that the code has not been altered or corrupted since it was signed.
+* **Mechanism:** Uses **Public Key Infrastructure (PKI)**. The developer signs the code with a private key, and the OS verifies it with the corresponding public key.
+* **Real-World Use Case:** When you install a driver in Windows, the OS checks for a digital signature. If the signature is missing or invalid, Windows will warn the user or block the installation to prevent rootkits.
+
+## 3. Hardware and Firmware Security Features
+
+### Executable Space Prevention (DEP/NX Bit)
+* **Definition:** A security feature that marks certain sectors of system memory as "non-executable." 
+* **Mechanism:** Known as **DEP (Data Execution Prevention)** in Windows or the **NX (No-eXecute) bit** at the CPU level.
+* **Goal:** To prevent **Buffer Overflow** attacks. If an attacker tries to inject malicious code into a data storage area of memory and then execute it, the CPU will block the attempt and crash the process instead.
+
+### Secure Boot
+* **Definition:** A feature of the **UEFI (Unified Extensible Firmware Interface)** that ensures the computer boots using only software that is trusted by the Original Equipment Manufacturer (OEM).
+* **Process:** The UEFI firmware checks the digital signature of each piece of boot software (Option ROMs, EFI drivers, and the OS bootloader). If the signatures are valid, the PC boots; otherwise, it stops the process.
+* **Goal:** To prevent **Rootkits** and **Bootkits** from loading before the Operating System even starts.
+
+### Trusted Platform Module (TPM)
+* **Definition:** A dedicated international standard for a secure cryptoprocessor—a dedicated microcontroller designed to secure hardware through integrated cryptographic keys.
+* **Functions:**
+    * **Platform Integrity:** It "measures" the boot process and stores the hashes. If the hardware or BIOS is tampered with, the TPM can refuse to release encryption keys.
+    * **Disk Encryption:** It works with **BitLocker** to ensure the drive can only be decrypted on that specific physical machine.
+    * **Secure Storage:** It stores passwords, certificates, and keys in a hardware-protected vault that is difficult to "sniff" or hack.
+ 
+# Endpoint Security Software Stack
+
+## 1. Antivirus (AV) / Endpoint Detection & Response (EDR)
+* **Definition:** Software designed to prevent, detect, and remove malware.
+* **Legacy AV:** Relies on **Signatures** (fingerprints of known malware). If the file matches a database entry, it is blocked.
+* **Modern EDR:** Uses **Heuristics** and **Behavioral Analysis** to spot suspicious patterns (e.g., a Word doc suddenly launching a PowerShell script).
+* **Benefit:** EDR provides deep visibility into the "root cause" of an infection, allowing admins to see exactly how a threat entered the network.
+
+## 2. Host-Based Firewall
+* **Definition:** A software application that monitors and filters incoming and outgoing network traffic based on an individual host's security policy.
+* **Real-World Use Case:** **Windows Defender Firewall** or Linux **iptables/nftables**.
+* **Benefit:** Provides "Micro-segmentation." Even if an attacker gets onto the local network, a host-based firewall can prevent them from "pinging" or connecting to other workstations.
+
+## 3. Browser Protection
+* **Definition:** Security extensions or built-in features (like **Microsoft Defender SmartScreen**) that protect users while they navigate the web.
+* **Capabilities:** * **URL Filtering:** Blocking known malicious or phishing websites.
+    * **Sandboxing:** Running browser processes in an isolated container so a malicious script cannot access the rest of the OS.
+    * **Ad-Blocking:** Preventing "Malvertising" from executing code in the browser.
+
+## 4. Email Protection (Endpoint Level)
+* **Definition:** While much email security happens at the Gateway (SaaS level), endpoint agents provide a final check on attachments and links.
+* **Capabilities:** * **Attachment Sandboxing:** Opening a PDF in a safe, hidden virtual environment to see if it tries to install malware.
+    * **Link Rewriting:** Changing URLs in an email so they are scanned for threats every time the user clicks them.
+
+## 5. Host-Based Intrusion Detection System (HIDS)
+* **Definition:** A system that monitors the internals of a single host for suspicious activity, such as unauthorized registry changes or unusual system calls.
+* **Example:** **OSSEC** or **Wazuh**.
+* **Benefit:** Unlike a network IDS, a HIDS can see exactly what is happening *inside* the encrypted traffic once it reaches the host.
+
+## 6. File Integrity Monitoring (FIM)
+* **Definition:** A security control that alerts administrators when critical system files (like `C:\Windows\System32` or `/etc/passwd`) are modified.
+* **Mechanism:** It creates a **Baseline Hash** of important files. If the hash changes, it means the file was altered, potentially by a Rootkit or an unauthorized user.
+* **Compliance:** Required by standards like **PCI DSS** to ensure the integrity of systems handling credit card data.
+
+## 7. Data Loss Prevention (DLP) - Endpoint
+* **Definition:** Software that prevents sensitive data from leaving the endpoint through unauthorized channels.
+* **Real-World Use Case:** An agent that blocks a user from copying a file labeled "Confidential" to a USB thumb drive or pasting sensitive "PII" into a web form.
+* **Action:** Can be configured to **Audit** (log the event), **Block** (stop the action), or **Encrypt** (force the file to be protected before it leaves).
+
+# Endpoint Detection and Response Frameworks
+
+## 1. EPP (Endpoint Protection Platform)
+* **Definition:** A preventative security suite designed to detect and block known threats at the device level before they can execute.
+* **Focus:** **Prevention.** It acts as the "first line of defense."
+* **Capabilities:** Combines traditional Antivirus (AV), personal firewalls, and data encryption into a single agent.
+* **Limitation:** Primarily effective against "known" malware signatures; it often struggles with sophisticated, fileless, or zero-day attacks.
+
+## 2. EDR (Endpoint Detection and Response)
+* **Definition:** A tool that provides continuous monitoring and recording of endpoint data (processes, registry changes, network connections) to detect and respond to advanced threats.
+* **Focus:** **Detection and Visibility.** It assumes a breach *will* happen and provides the "flight recorder" data to investigate it.
+* **Capabilities:** * **Behavioral Analysis:** Spots suspicious patterns (e.g., Word launching PowerShell).
+    * **Threat Hunting:** Allows admins to search across all workstations for a specific file hash or IP address.
+    * **Containment:** Can remotely isolate an infected laptop from the network with one click.
+
+## 3. MDR (Managed Detection and Response)
+* **Definition:** A service-based offering where a third-party provider (an MSSP) manages an organization's EDR/XDR tools and monitors alerts 24/7.
+* **Focus:** **Personnel and Expertise.**
+* **Real-World Use Case:** A mid-sized company in **Chesapeake** that has the budget for security software but lacks a 24/7 internal Security Operations Center (SOC) team. 
+* **Benefit:** Provides "human-in-the-loop" analysis to filter out false positives and provide expert remediation guidance during an incident.
+
+## 4. XDR (Extended Detection and Response)
+* **Definition:** A cross-layered security approach that integrates data from endpoints, networks, cloud servers, and email into a single "data lake" for correlated analysis.
+* **Focus:** **Integration and Correlation.** * **The "X" Factor:** Unlike EDR, which only sees the workstation, XDR can see that a malicious email (Email Security) was opened, which led to a process running (Endpoint), which then tried to connect to a suspicious IP (Network).
+* **Benefit:** Reduces "siloed" views and automates response across different security products simultaneously.
+
+# Mobile Device Management & Security
+
+## 1. Mobile Device Connections
+* **Wi-Fi:** High-speed local networking. Security focus: Using **WPA3-Enterprise** and avoiding unsecured public hotspots.
+* **Cellular:** Wide-area connectivity (LTE/5G). Generally more secure than public Wi-Fi but subject to "Stingray" (IMSI catcher) eavesdropping.
+* **Bluetooth:** Short-range wireless. Vulnerable to **Bluejacking** (sending unsolicited messages) and **Bluesnarfing** (stealing data).
+* **USB:** Physical connection for charging and data transfer. Security focus: Preventing **Juice Jacking** by using "USB Data Blockers."
+
+## 2. Mobile Deployment Models
+
+| Model | Ownership | Control | Description |
+| :--- | :--- | :--- | :--- |
+| **COBO** | Corporate | Maximum | **Corporate Owned, Business Only.** The device is strictly for work; no personal apps allowed. |
+| **COPE** | Corporate | High | **Corporate Owned, Personally Enabled.** The company owns it, but the user can use it for personal tasks. |
+| **BYOD** | User | Low | **Bring Your Own Device.** The user uses their personal phone for work. High privacy for the user, high risk for the company. |
+| **CYOD** | User/Corp | Medium | **Choose Your Own Device.** The company provides a list of approved devices the user can choose from, making management easier. |
+
+## 3. MDM & Unified Management Categories
+* **MCM (Mobile Content Management):** Secures the specific **files** and documents accessed on the device (e.g., a secure PDF viewer).
+* **MAM (Mobile Application Management):** Controls which **apps** can be installed and how they handle data (e.g., preventing "Copy/Paste" from Outlook to a personal Notes app).
+* **MIM (Mobile Identity Management):** Ensures only authorized users can access the device and its services (Certificates, Biometrics, MFA).
+* **EMM (Enterprise Mobility Management):** A suite that combines MDM, MAM, and MCM into one platform.
+* **UEM (Unified Endpoint Management):** The modern evolution that manages **everything** (Laptops, Mobile, IoT, Tablets) from a single console.
+
+## 4. Mobile Data Protection
+
+### Storage Segmentation & Containerization
+* **Definition:** Creating a "Work Profile" or encrypted container that separates corporate data from personal data on the same physical device.
+* **Benefit:** If an employee leaves, the company can perform a **Selective Wipe** (deleting only work data) without touching the user's personal photos.
+
+### Encryption Methods
+* **File-Based Encryption (FBE):** Different files are encrypted with different keys. Allows the phone to perform basic functions (like alarms) while the rest of the data is still locked.
+* **Full Device Encryption (FDE):** Encrypts the entire storage disk. The device cannot boot or function until the user enters their passcode.
+* **microSD HSM:** Using a specialized microSD card that acts as a **Hardware Security Module** to store encryption keys and perform cryptographic operations physically.
+
+## 5. Mobile Application Security
+
+* **Application Allow Lists:** Only pre-approved apps from the corporate store can be installed.
+* **Secrets Management:** Ensuring that API keys or passwords aren't "hardcoded" into mobile apps but are retrieved securely from a vault.
+* **Encrypted Protocols:** Mandating the use of **HTTPS (TLS)** and **VPNs** for all app communications to prevent Man-in-the-Middle attacks.
+* **Push Notifications:** Managing how much data is displayed in a notification on a locked screen (e.g., "New Message" vs. showing the actual content).
+* **App Permissions:** The "Gatekeeper" of mobile security. Restricting apps from accessing the Microphone, Camera, or Contacts unless strictly necessary.
+* **Containerization:** Running apps in an isolated environment so they cannot interact with other apps or the host OS directly.
+
+# Application Exploits & Memory Vulnerabilities
+
+## 1. Core Application Exploits
+* **Privilege Escalation:** Gaining a higher level of access (e.g., from a standard User to an Administrator/Root) by exploiting a bug or configuration flaw.
+* **Directory Traversal (Path Traversal):** An attack that exploits insufficient security validation of user-supplied input file names to access files and directories stored outside the intended folder (e.g., using `../../etc/passwd`).
+* **Arbitrary Code Execution (ACE):** The ability of an attacker to execute any commands or code of their choice on a target machine.
+* **Resource Exhaustion:** A DoS attack that consumes a server's resources (CPU, RAM, or Disk Space) until it becomes unresponsive (e.g., a "Zip Bomb").
+
+---
+
+## 2. OWASP Top 10
+**Definition:** A standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications.
+* **Key Risks include:** Broken Access Control, Cryptographic Failures, Injection, and Insecure Design.
+
+## 3. Manipulation Techniques
+* **Input Manipulation:** Altering data sent to an application to change its behavior (e.g., changing a "Price" field in a web form).
+* **Header Manipulation:** Tampering with HTTP headers (like Cookies or Referrer) to bypass authentication or perform **Session Hijacking**.
+* **Memory Manipulation:** Directly modifying the data stored in RAM to alter the execution flow of a program.
+* **Injection:** Trickery where an attacker sends "data" that the application mistakenly interprets as a "command."
+
+## 4. Memory Vulnerabilities
+* **Buffer Overflow:** Sending more data to a memory buffer than it can hold, causing the excess to spill into adjacent memory. This can overwrite the "Return Address" to point to malicious code.
+* **Integer Overflow:** Occurs when an arithmetic operation attempts to create a numeric value that is outside of the range that can be represented (e.g., adding 1 to a maximum value and having it "wrap around" to zero).
+* **Dereferencing:** An attack where a program attempts to read a memory address that is null or invalid, often causing a crash or allowing for code execution.
+* **Memory Leak:** A failure in a program to release discarded memory, causing performance degradation and eventual system failure.
+
+## 5. Race Conditions
+* **Definition:** A vulnerability where the outcome depends on the sequence or timing of uncontrollable events (e.g., checking a file's permissions and then opening it, but an attacker swaps the file in the millisecond between those two actions).
+
+## 6. SQL Injection (SQLi)
+**Definition:** Inserting malicious SQL queries into input fields to manipulate a backend database.
+
+### SQLi Techniques
+* **Unfiltered Escape Characters:** Using characters like the single quote (`'`) to "break out" of a data field and start a command.
+* **Improper Input Types:** Sending text into a field that expects a number to trigger an error or bypass logic.
+* **Stacked Queries:** Ending a legitimate query with a semicolon (`;`) and then adding a second, malicious command (e.g., `; DROP TABLE Users`).
+* **Blind Injection:** Asking the database "True/False" questions when the app doesn't show direct errors (e.g., "If the admin password starts with 'A', wait 10 seconds").
+* **Signature Evasion:** Using encoding (like Hex or URL encoding) to hide SQL keywords from firewalls.
+
+## 7. Other Injection Targets
+* **NoSQL Injection:** Targeting non-relational databases like MongoDB.
+* **LDAP Injection:** Manipulating Active Directory or OpenLDAP queries to bypass login screens.
+* **XML Injection (XXE):** Exploiting how an application parses XML input to read local files or scan internal networks.
+* **Command Injection:** Injecting OS-level commands (like `ls` or `dir`) into a web application to interact with the server's shell.
+* **Process Injection:** Masking malicious code by "injecting" it into the memory space of a legitimate, running process (like `explorer.exe`).
+
+## 8. Client-Side Attacks
+* **Browser Add-ons / Malicious Add-ons:** Extensions that steal passwords, inject ads, or track browsing history.
+* **Cookies:** Attackers can steal session cookies to impersonate a user (Session Hijacking) or perform **Cross-Site Request Forgery (CSRF)**.
+* **Attachments:** Common delivery methods for malware via email (Word docs with Macros or PDFs with embedded scripts).

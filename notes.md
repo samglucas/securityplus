@@ -1097,3 +1097,57 @@ To understand how these work, you have to look at the four specific players invo
 ### Rootkit
 * **Definition:** A collection of tools that grants an attacker administrative (root) access while hiding their presence from the OS and security tools.
 * **Real-World Impact:** Often replaces core OS files with "poisoned" versions that hide the attacker's processes and network connections.
+
+# Virtualization, Cloud, and Operational Technology
+
+## 1. Virtualized Architecture
+**Definition:** The process of creating a software-based (virtual) representation of something, such as virtual applications, servers, storage, and networks.
+
+### Type 1 Hypervisor (Bare Metal)
+* **Description:** The hypervisor software runs directly on the host's hardware to manage guest operating systems.
+* **Real-World Use Case:** Enterprise data centers using **VMware ESXi** or **Microsoft Hyper-V** on physical rack servers.
+* **Benefit:** High performance and efficiency since there is no middle-man OS.
+
+### Type 2 Hypervisor (Hosted)
+* **Description:** The hypervisor runs as an application on top of an existing operating system (like Windows or macOS).
+* **Real-World Use Case:** A developer using **Oracle VirtualBox** or **VMware Workstation** on their laptop to test a Linux distribution.
+* **Benefit:** Easy to set up and use for testing or lab environments.
+
+### Containers
+* **Description:** A lightweight form of virtualization that packages an application and its dependencies together. Unlike VMs, containers share the host's OS kernel.
+* **Real-World Use Case:** Using **Docker** or **Kubernetes** to deploy microservices that start up in seconds and use very little memory.
+
+### VDI (Virtual Desktop Infrastructure)
+* **Description:** Hosting a desktop operating system within a virtual machine on a centralized server.
+* **Real-World Use Case:** A call center where employees use "Thin Clients" to log into a virtual Windows desktop hosted in the company data center.
+
+## 2. Virtual Machine Vulnerabilities
+
+### VM Hopping
+* **Definition:** An attack where a threat actor gains access to one virtual machine and then manages to "hop" or pivot to another VM sharing the same physical host.
+* **Risk:** If a public-facing web server VM is compromised, the attacker might try to hop to a database VM on the same hardware.
+
+### VM Escape
+* **Definition:** The most dangerous VM vulnerability, where an attacker breaks out of the guest VM and gains access to the **Hypervisor** or the physical host itself.
+* **Mitigation:** Keeping hypervisors patched and using "Sandboxing" techniques.
+
+## 3. Operational Technologies (OT)
+**Definition:** Hardware and software that detects or causes a change through the direct monitoring and/or control of physical devices.
+
+* **ICS (Industrial Control Systems):** Used in utilities and manufacturing. Includes **SCADA** (Supervisory Control and Data Acquisition) for large-scale processes like power grids.
+* **BAS (Building Automation Systems):** Centralized control of a building's heating, ventilation, air conditioning (HVAC), lighting, and security systems.
+* **Vehicle Control:** Embedded systems within cars or drones that manage engine timing, braking (ABS), and autonomous navigation.
+* **IoT (Internet of Things):** Small, internet-connected devices like smart thermostats, cameras, or light bulbs. Often lack robust security features.
+
+## 4. Cloud Service Models (The "Shared Responsibility" Model)
+
+| Model | Definition | You Manage... | Vendor Manages... |
+| :--- | :--- | :--- | :--- |
+| **IaaS** | Infrastructure as a Service | OS, Apps, Data, Runtime | Servers, Storage, Networking |
+| **PaaS** | Platform as a Service | Your Applications & Data | OS, Middleware, Hardware |
+| **SaaS** | Software as a Service | Just your user settings | Everything (The whole app) |
+
+### Real-World Examples:
+* **IaaS:** Spinning up a virtual server in **Microsoft Azure** or **AWS EC2**.
+* **PaaS:** Deploying code to **Google App Engine** or **AWS Elastic Beanstalk** without worrying about the underlying OS.
+* **SaaS:** Using **Microsoft 365**, **Salesforce**, or **Gmail**.

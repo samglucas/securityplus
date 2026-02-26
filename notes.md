@@ -1177,3 +1177,41 @@ To understand how these work, you have to look at the four specific players invo
 * **Description:** A composition of two or more distinct cloud infrastructures (Private, Community, or Public) that remain unique entities but are bound together by standardized technology.
 * **Real-World Use Case:** A company that keeps its sensitive customer database on a **Private Cloud** (on-premises) for security but uses a **Public Cloud** (like Azure) to handle web traffic "bursts" during a high-volume sale.
 * **Benefit:** Provides the "best of both worlds"—flexibility of the public cloud with the security of the private cloud.
+
+# Information Life Cycle & Data States
+
+## 1. The Information Life Cycle
+**Definition:** The entire period of time that a piece of information exists, from its initial creation to its final disposal.
+
+### Creation / Acquisition
+* **Definition:** The phase where data is first generated (e.g., typing a document) or collected from an external source (e.g., a customer filling out a web form).
+* **Security Focus:** Classification. This is the best time to tag data as "Public," "Internal," or "Confidential."
+
+### Use / Storage
+* **Definition:** The phase where data is actively being used by employees to perform tasks or is stored on a hard drive, server, or cloud bucket for future use.
+* **Security Focus:** Access control and encryption. Ensuring only authorized users can see or modify the data.
+
+### Retention / Archival
+* **Definition:** Data that is no longer needed for daily operations but must be kept for legal, regulatory, or historical reasons.
+* **Security Focus:** Integrity and long-term availability. Moving data to cheaper, "cold" storage (like Azure Archive Storage) while ensuring it remains uncorrupted.
+
+### Wiping / Disposal
+* **Definition:** The final phase where data is permanently destroyed so it can never be recovered.
+* **Security Focus:** Sanitization. Using methods like **Purging**, **Degaussing**, or **Physical Destruction** (shredding drives) to prevent data remanence.
+
+
+## 2. States of Data
+**Definition:** The different modes in which data exists within a network. Each state requires a specific type of protection.
+
+### Data in Motion / Transit
+* **Definition:** Data that is currently traveling over a network (e.g., an email being sent or a file being uploaded to the cloud).
+* **Primary Protection:** **TLS/SSL**, **VPNs**, and **IPsec**. We protect this data using **Transport Encryption** to prevent sniffing (Man-in-the-Middle attacks).
+
+### Data at Rest
+* **Definition:** Data that is physically stored on a persistent storage medium (e.g., a hard drive, a USB stick, or a database).
+* **Primary Protection:** **Full Disk Encryption (FDE)**, **AES-256**, and **Database Encryption**. We protect this data so that if the physical drive is stolen, the data remains unreadable.
+
+### Data in Use / Data in Processing
+* **Definition:** Data that is currently loaded into **System Memory (RAM)**, CPU caches, or registers and is being actively acted upon by an application.
+* **Primary Protection:** **Address Space Layout Randomization (ASLR)**, **Process Isolation**, and **Trusted Execution Environments (TEE)**.
+* **Security Note:** This is the most difficult state to protect because the data must be "decrypted" in RAM for the CPU to read it.

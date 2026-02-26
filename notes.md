@@ -1516,3 +1516,52 @@ To understand how these work, you have to look at the four specific players invo
 * **Browser Add-ons / Malicious Add-ons:** Extensions that steal passwords, inject ads, or track browsing history.
 * **Cookies:** Attackers can steal session cookies to impersonate a user (Session Hijacking) or perform **Cross-Site Request Forgery (CSRF)**.
 * **Attachments:** Common delivery methods for malware via email (Word docs with Macros or PDFs with embedded scripts).
+
+# Web Vulnerabilities & Secure Development
+
+## 1. XSS (Cross-Site Scripting) Techniques
+**Definition:** An attack where malicious scripts are injected into otherwise benign and trusted websites. The script executes in the **victim's browser**, not on the server.
+
+* **Stored (Persistent) XSS:** The most dangerous type. The script is permanently stored on the target server (e.g., in a database, a forum post, or a comment field). Every user who views that page executes the script.
+* **Reflected (Non-Persistent) XSS:** The script is "reflected" off a web server to the victim. It is usually delivered via a crafted link in an email or chat message.
+* **DOM-Based XSS:** The vulnerability exists in the client-side code rather than the server-side code. The attack modifies the "Document Object Model" environment in the victim's browser.
+
+## 2. Request Forgeries
+* **CSRF (Cross-Site Request Forgery):** An attack that forces an authenticated user to execute unwanted actions on a web application in which they are currently logged in.
+* **Mechanism:** It tricks the browser into sending a forged HTTP request (like "Transfer $1000 to Attacker") to a site where the user has an active session cookie.
+* **Analogy:** A criminal tricking a bank teller into processing a check because the signature (the session cookie) looks legitimate.
+
+## 3. Software Development Life Cycle (SDLC)
+**Definition:** A structured process used by organizations to design, develop, and test high-quality software.
+
+1. **Initiation:** Defining the project goals and security requirements.
+2. **Development / Acquisition:** Writing the code or purchasing software components.
+3. **Implementation / Assessment:** Testing the code (Unit, Integration, and Security testing) and deploying it.
+4. **Operations and Maintenance:** Patching, monitoring, and updating the software in production.
+5. **Disposal:** Securely retiring the software and archiving or destroying associated data.
+
+## 4. Software Development Models
+* **Waterfall:** A linear, sequential model where each phase must be completed before the next begins. Hard to change requirements once started.
+* **Agile:** An iterative approach focusing on continuous delivery, small "sprints," and constant feedback. Security must be integrated into every sprint.
+
+## 5. DevSecOps & Modern Infrastructure
+**Definition:** Integrating security practices into the DevOps continuous integration/continuous deployment (CI/CD) pipeline.
+
+* **Automated Processes:** Using scripts to automatically scan code for vulnerabilities during every build.
+* **Baselining:** Establishing a known "good" state for systems so unauthorized changes can be detected.
+* **Immutable Systems:** Instead of patching a running server, you replace it entirely with a new, pre-configured image.
+* **Infrastructure as Code (IaC):** Managing and provisioning infrastructure (servers, networks) through machine-readable definition files (like Terraform or Ansible).
+* **Software-Defined Security:** Using code to dynamically update firewall rules or access logs in response to threats.
+
+## 6. Secure Coding Methods
+**Definition:** Best practices for writing code that is resistant to the exploits we've discussed.
+
+* **Input Validation:** Ensuring data is in the correct **format** (e.g., a zip code should only be numbers).
+* **Input Sanitation:** Cleaning data to remove dangerous characters (e.g., stripping `<script>` tags).
+* **Error and Exception Handling:** Ensuring the app fails gracefully. Never show "Verbose" errors (like database connection strings) to the end-user.
+* **Memory Management:** Manually clearing sensitive data from RAM once it is no longer needed.
+* **Code Commentary:** Using comments to explain logic, but ensuring no sensitive info (passwords, API keys) is left in the comments.
+
+### Input Validation: Client-Side vs. Server-Side
+* **Client-Side (Browser):** Great for user experience (instant feedback), but **cannot be trusted** for security because an attacker can bypass the browser entirely.
+* **Server-Side (Backend):** The **only** reliable place for security validation. All data coming from a user must be treated as "untrusted."

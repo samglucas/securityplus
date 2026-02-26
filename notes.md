@@ -1565,3 +1565,46 @@ To understand how these work, you have to look at the four specific players invo
 ### Input Validation: Client-Side vs. Server-Side
 * **Client-Side (Browser):** Great for user experience (instant feedback), but **cannot be trusted** for security because an attacker can bypass the browser entirely.
 * **Server-Side (Backend):** The **only** reliable place for security validation. All data coming from a user must be treated as "untrusted."
+
+# Application Resiliency & Change Management
+
+## 1. Forgery Prevention
+**Definition:** Technical measures taken to ensure that requests or data are legitimate and haven't been "faked" by an attacker.
+* **CSRF Tokens:** Using unique, cryptographically strong "anti-forgery tokens" for every user session. The server checks for this token before processing a request (like a password change).
+* **SameSite Cookie Attributes:** Configuring cookies so they aren't sent during cross-site requests, effectively neutralizing many CSRF attacks.
+
+## 2. Software Diversity
+* **Definition:** Using different operating systems, application versions, or coding languages across an environment.
+* **Benefit:** It prevents a single "Zero-Day" exploit from taking down the entire organization. If all your servers are identical, one exploit kills them all; if they are diverse, the attacker has to work much harder.
+
+## 3. Application Testing Methods
+**Definition:** Different approaches to finding bugs and security holes before software is released.
+
+* **Static Code Analysis (SAST):** Reviewing the **source code** without actually running the program. It looks for "bad patterns" like hardcoded passwords or unsafe functions.
+* **Dynamic Code Analysis (DAST):** Testing the application while it is **running**. It involves sending malformed data (Fuzzing) to the app to see if it crashes or leaks data.
+* **Stress Testing:** Pushing the application to its limits (and beyond) to see how it handles extreme loads and to identify **Resource Exhaustion** points.
+
+## 4. Code Quality & SDKs
+* **Code Quality:** Maintaining clean, readable, and well-documented code. Poor code quality often leads to "Technical Debt" and hidden security vulnerabilities.
+* **Software Development Kits (SDKs):** Using pre-made sets of tools and libraries provided by vendors (like the Azure SDK or AWS SDK). 
+    * **Risk:** If the SDK itself is compromised or outdated, every application built with it becomes vulnerable (Supply Chain Attack).
+
+## 5. Sandboxing
+* **Definition:** Running an application in an isolated, restricted environment where it cannot access the host's files or network unless explicitly permitted.
+* **Real-World Use Case:** A web browser running each tab in a separate sandbox so a malicious site in Tab A cannot steal cookies from your bank in Tab B.
+
+## 6. Hardening Applications
+**The Four Pillars of Application Hardening:**
+1. **Harden the Underlying Host and Network:** Ensure the OS is patched, the firewall is tight, and unnecessary services are disabled.
+2. **Securely Configure the Application:** Change default admin credentials, disable debug modes, and use secure protocols (HTTPS).
+3. **Thoroughly Test Before Deploying:** Use SAST, DAST, and User Acceptance Testing (UAT) in a "Staging" environment.
+4. **Maintain Security Over Time:** Monitor logs for attacks and apply patches as soon as the vendor releases them.
+
+## 7. Software Change Management
+**Definition:** The formal process of ensuring that changes to the software environment are documented, tested, and authorized to prevent downtime or security gaps.
+
+* **Change Request Management:** The initial phase where a developer or user proposes a change, explaining the "Why," the "How," and the "Rollback Plan."
+* **Change Control:** The formal approval process by a **Change Advisory Board (CAB)**.
+* **Version Control (e.g., Git):** Tracking every single change to the source code, allowing developers to see who changed what and "revert" to a previous version if a bug is found.
+* **Release Management:** The planning and execution of moving code from the Dev environment to Production.
+* **Configuration Management:** Ensuring that the settings and parameters of the software are consistent and documented across all servers.

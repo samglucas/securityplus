@@ -1476,8 +1476,6 @@ To understand how these work, you have to look at the four specific players invo
 * **Arbitrary Code Execution (ACE):** The ability of an attacker to execute any commands or code of their choice on a target machine.
 * **Resource Exhaustion:** A DoS attack that consumes a server's resources (CPU, RAM, or Disk Space) until it becomes unresponsive (e.g., a "Zip Bomb").
 
----
-
 ## 2. OWASP Top 10
 **Definition:** A standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications.
 * **Key Risks include:** Broken Access Control, Cryptographic Failures, Injection, and Insecure Design.

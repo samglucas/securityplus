@@ -1038,3 +1038,62 @@ To understand how these work, you have to look at the four specific players invo
 * **Block Inheritance:** An administrator can stop parent GPOs from reaching a Child OU. (Useful for highly sensitive or "exception" groups).
 * **Enforced (No Override):** A setting at a higher level (like the Domain) can be "Enforced," meaning it will apply even if a Child OU tries to block it or change it.
 * **Loopback Processing:** A special mode used for kiosks or lab computers where the **Computer's** GPOs take priority over the **User's** GPOs.
+
+# Host Attack Surfaces & Malware Analysis
+
+## 1. Host Attack Surfaces
+**Definition:** The sum total of all points where an unauthorized user can try to enter data to or extract data from an environment.
+
+* **Applications:** Third-party software (browsers, office suites) that may have coding flaws or "Zero-Day" vulnerabilities.
+* **Operating System Services:** Background processes (like Print Spooler or Remote Registry) that run with high privileges and can be exploited.
+* **Firmware:** The low-level software programmed into hardware (BIOS/UEFI). Attacks here are persistent even if the OS is reinstalled.
+* **Drivers:** Software that allows the OS to communicate with hardware. Malicious or "signed" but vulnerable drivers can grant kernel-level access.
+* **Hardware Interfaces:** Physical entry points like USB ports, Thunderbolt, or even DMA (Direct Memory Access) attacks via expansion cards.
+
+
+## 2. Software Vulnerabilities & Risks
+
+* **Malware:** Malicious software designed to infiltrate or damage a computer system.
+* **Open Service Ports:** Unnecessary ports (like Port 21 for FTP or Port 23 for Telnet) left open, providing a doorway for attackers.
+* **Unpatched Software:** Known vulnerabilities (CVEs) that have fixes available but haven't been applied by the administrator.
+* **Unauthorized Systems/Software:** "Shadow IT" where users install their own apps or bring their own devices (BYOD) without security oversight.
+
+## 3. Malware Types
+**Definition:** The "delivery vehicle" or method used to infect a system.
+
+| Type | Description |
+| :--- | :--- |
+| **Virus** | Malicious code that requires **human interaction** (opening a file) to replicate and spread. |
+| **Worm** | **Self-replicating** malware that spreads across a network automatically without human intervention. |
+| **Trojan** | Malicious software disguised as a legitimate or harmless program (e.g., a "free" game). |
+| **Bloatware / Grayware** | Unwanted software pre-installed on devices that consumes resources or tracks user behavior without being "malicious" in the traditional sense. |
+| **Drive-by-Download** | Malware that installs automatically when a user simply visits a compromised website, often exploiting browser vulnerabilities. |
+| **Logic Bomb** | Malicious code that stays dormant until a specific condition is met (e.g., a specific date or a user being deleted from payroll). |
+| **Removable Device** | Malware spread via USB sticks or external drives (e.g., the Stuxnet worm). |
+
+## 4. Malware Payloads
+**Definition:** The actual "harmful" action the malware performs once it has successfully infected the host.
+
+* **Backdoor:** A secret way to bypass normal authentication, allowing an attacker to regain access later.
+* **Command and Control (C2):** The centralized infrastructure (server) used by attackers to send instructions to infected hosts.
+* **Botnet:** A collection of "zombie" computers controlled by a C2 server, often used for DDoS attacks or spamming.
+* **Ransomware:** Encrypts the victim's files and demands payment (usually in cryptocurrency) for the decryption key.
+* **Spyware / Keylogger:** Secretly records user activity, keystrokes (to steal passwords), and screenshots.
+* **Adware:** Automatically displays or downloads advertising material, often slowing down the system.
+
+## 5. How Malware Hides (Evasion Techniques)
+
+### Polymorphic Malware
+* **Definition:** Malware that constantly changes its own code (its "signature") every time it replicates to evade traditional antivirus detection.
+* **Analogy:** A criminal who gets a different face-lift and new fingerprints after every crime.
+
+### Stealth Malware
+* **Definition:** Malware that actively hides its presence by intercepting OS requests. For example, it might report a file's size is "0 bytes" when the AV tries to scan it.
+
+### Fileless Malware
+* **Definition:** Malware that exists only in **RAM (System Memory)** and uses legitimate tools (like PowerShell or WMI) to carry out attacks.
+* **Benefit to Attacker:** It leaves no trace on the hard drive, making it invisible to standard file-based scanners.
+
+### Rootkit
+* **Definition:** A collection of tools that grants an attacker administrative (root) access while hiding their presence from the OS and security tools.
+* **Real-World Impact:** Often replaces core OS files with "poisoned" versions that hide the attacker's processes and network connections.

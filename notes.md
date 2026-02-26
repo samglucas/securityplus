@@ -1215,3 +1215,34 @@ To understand how these work, you have to look at the four specific players invo
 * **Definition:** Data that is currently loaded into **System Memory (RAM)**, CPU caches, or registers and is being actively acted upon by an application.
 * **Primary Protection:** **Address Space Layout Randomization (ASLR)**, **Process Isolation**, and **Trusted Execution Environments (TEE)**.
 * **Security Note:** This is the most difficult state to protect because the data must be "decrypted" in RAM for the CPU to read it.
+
+# Data Classification Levels
+
+**Definition:** The process of assigning a level of sensitivity to data to determine the appropriate security controls, handling procedures, and access requirements.
+
+### 1. Top Secret
+* **Description:** The highest level of classification. Disclosure of this information would cause **exceptionally grave damage** to national security or the organization.
+* **Access Requirement:** Requires the highest level of security clearance and a strict "Need to Know" basis.
+* **Real-World Use Case:** Information about active intelligence sources, nuclear programs, or highly sensitive strategic defense plans.
+
+### 2. Secret
+* **Description:** Information that, if disclosed, would cause **serious damage** to national security or the organization.
+* **Access Requirement:** Requires a formal security clearance and authorized access.
+* **Real-World Use Case:** Significant military plans, technical descriptions of advanced weapon systems, or internal investigative reports.
+
+
+### 3. Confidential
+* **Description:** Information that, if disclosed, would cause **damage** or be prejudicial to the interests of the organization or national security. This is often the lowest level of "classified" data.
+* **Access Requirement:** Requires authorization and is typically restricted to a specific group or department.
+* **Real-World Use Case:** Personnel files, internal memos regarding sensitive business negotiations, or basic technical manuals for restricted equipment.
+
+### 4. Unclassified
+* **Description:** Data that does not meet the criteria for any of the higher levels of classification. While it is not "secret," it may still be subject to controls (like "For Official Use Only" or FOUO).
+* **Access Requirement:** Generally available to the public or all employees, though internal distribution may still be restricted.
+* **Real-World Use Case:** Public press releases, standard operating procedures (SOPs), and general administrative information.
+
+## Data Labeling and Handling
+
+* **Labeling:** Every document or file must be clearly marked with its classification level (often in the header and footer).
+* **Storage:** Top Secret data might require a GSA-approved safe or a SCIF (Sensitive Compartmented Information Facility), while Unclassified data can be stored on standard encrypted drives.
+* **Destruction:** Higher classification levels require stricter destruction methods, such as cross-cut shredding, pulping, or degaussing.

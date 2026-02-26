@@ -844,3 +844,197 @@ To understand how these work, you have to look at the four specific players invo
 | **Primary Goal** | Enterprise SSO | Web/Mobile App Authorization |
 | **Complexity** | High (Harder to configure) | Low (Developer-friendly) |
 | **Transport** | Browser-heavy (HTTP POST) | API-centric |
+
+# Access Control Models & Permission Types
+
+## Access Control Models
+
+### 1. Discretionary Access Control (DAC)
+* **Definition:** A model where the **owner** of the resource (file, folder, or object) has total control over who is granted access and what privileges they have.
+* **Real-World Use Case:** A user on a Windows or Linux machine creating a document and then right-clicking it to "Share" it with a specific colleague.
+* **Security Note:** This is the most flexible model but the least secure, as it relies on individual users to maintain security.
+
+### 2. Mandatory Access Control (MAC)
+* **Definition:** A strict, non-discretionary model where access is based on **security labels** (e.g., Secret, Top Secret) and "clearance" levels. Only the system administrator can define access.
+* **Real-World Use Case:** Military or high-security government databases where a user cannot share a "Top Secret" file with someone else, even if they created it.
+* **Benefit:** Prevents data from being shared or leaked by end-users.
+
+### 3. Role-Based Access Control (RBAC)
+* **Definition:** Access is granted based on the user's **job function** or role within the organization rather than their individual identity.
+* **Real-World Use Case:** A "Manager" role has access to payroll data, while a "Technician" role does not. When a new employee is hired as a Technician, they are simply added to that group to receive the correct permissions.
+* **Benefit:** Simplifies administration in large organizations.
+
+### 4. Rule-Based Access Control (RBAC/RuBAC)
+* **Definition:** Access is granted or denied based on a set of **predefined rules** or conditions, regardless of the user's identity.
+* **Real-World Use Case:** A firewall rule that says "Allow all traffic from the internal network to the internet on Port 443" or a router ACL.
+* **Mechanism:** Often follows an "If/Then" logic.
+
+### 5. Attribute-Based Access Control (ABAC)
+* **Definition:** The most flexible and complex model, where access is granted based on a combination of **attributes** (User attributes, Resource attributes, and Environmental conditions).
+* **Real-World Use Case:** "Allow the Manager to access the Financial Database (Resource) only if they are using a Corporate Laptop (Device) and are connecting from the Office (Location) during Business Hours (Time)."
+
+## Permission Types
+
+### 1. Explicit Allow
+* **Definition:** A permission that is specifically granted to a user or group.
+* **Example:** Manually adding "Sam Lucas" to have "Read" access to a folder.
+
+### 2. Explicit Deny
+* **Definition:** A permission that is specifically set to block access. In almost all systems, an **Explicit Deny overrides an Explicit Allow**.
+* **Example:** Blocking a specific user from a folder even if they are part of a group that normally has access.
+
+### 3. Inherited Allow
+* **Definition:** A permission that a user receives because it was set on a **parent object** (like a folder) and passed down to the child objects (like files).
+* **Example:** If you have access to the "Projects" folder, you automatically get access to the "2026_Report.docx" file inside it.
+
+### 4. Inherited Deny
+* **Definition:** A restriction that is passed down from a parent object to all its children.
+* **Example:** If the "Private" folder is set to deny access to the "Contractors" group, every file inside that folder will also deny them access by default.
+
+# Identity Lifecycle & Account Management
+
+## The Identity Lifecycle
+**Definition:** The formal process of managing a digital identity through its various stages within an organization.
+
+### 1. Provisioning (Onboarding)
+* **Definition:** The creation of a new user account and the granting of initial permissions based on the user's role.
+* **Real-World Use Case:** A new hire starts in the HR department. The IT team creates their Active Directory account and automatically maps them to the "HR-Staff" folder and the payroll software.
+
+### 2. Maintenance (Modification)
+* **Definition:** Updating an account throughout its life as the user's status changes (e.g., name changes, department transfers, or temporary access grants).
+* **Real-World Use Case:** An employee is promoted to Manager. Their account is moved to a new Organizational Unit (OU) to receive elevated "Privileged User" permissions.
+
+### 3. Deprovisioning (Offboarding)
+* **Definition:** The process of disabling or deleting an account and revoking all access when a user leaves the organization.
+* **Security Note:** This must happen immediately to prevent **"Orphaned Accounts"** that disgruntled former employees or attackers could use to gain back-door access.
+
+## Account Types
+
+### 1. User Account
+* **Description:** A standard account used by an individual employee for daily tasks (email, document editing).
+* **Permission Level:** Follows the principle of **Least Privilege**.
+
+### 2. Privileged Account
+* **Description:** Accounts with elevated permissions, such as System Administrators, Network Admins, or Database Admins.
+* **Security Note:** These accounts should **never** be used for daily tasks like web browsing or checking personal email, as they are high-value targets for attackers.
+
+### 3. Shared / Generic Account
+* **Description:** An account used by more than one person (e.g., `guest`, `reception`, or `training`).
+* **Security Risk:** Extremely dangerous because they lack **Accountability**. If a file is deleted by a shared account, you cannot prove which specific person did it.
+
+### 4. Guest Account
+* **Description:** A restricted account for temporary users (contractors or visitors).
+* **Best Practice:** Should be disabled by default and have a strictly limited lifespan.
+
+### 5. Service Account
+* **Description:** An account used by an application or a service (like a backup tool or an antivirus scanner) to perform automated tasks without human intervention.
+* **Real-World Use Case:** An "SQL-Service" account that allows the web server to pull data from the database. These accounts often have passwords that **never expire** to prevent breaking the application.
+
+# Identity Proofing Methods
+
+### 1. Static KBA (Knowledge-Based Authentication)
+* **Definition:** Verification based on "shared secrets" that a user previously provided to the system.
+* **Mechanism:** The user selects from a list of pre-set security questions during account setup.
+* **Real-World Use Case:** "What was the name of your first grade teacher?" or "What is your mother's maiden name?"
+* **Security Note:** This is considered **weak** today because much of this information can be found via social media or public records (OSINT).
+
+### 2. Dynamic KBA
+* **Definition:** Verification based on questions generated in real-time from third-party data sources (like credit bureaus or government records) that the user has not pre-configured.
+* **Real-World Use Case:** When applying for a loan online, the system asks: *"Which of the following addresses have you lived at in the last 10 years?"* or *"What was the monthly payment on your 2018 auto loan?"*
+* **Benefit:** Much harder to bypass than static KBA because the "answers" aren't stored in a single user profile; they are pulled from a vast web of public and private data.
+
+### 3. Out-of-Band (OOB) Proofing
+* **Definition:** Verifying an identity using a communication channel that is completely separate from the one being used to request access.
+* **Mechanism:** If you are signing up for a service on a laptop, the "proof" is sent to a different device or medium (like a physical piece of mail or a voice call to a registered landline).
+* **Real-World Use Case:** A bank mailing a physical letter containing a unique activation code to a customer's verified home address. The customer must then log in and enter that code to "proof" they actually live at that location.
+* **Benefit:** Provides a high level of assurance because it requires the user to have physical access to a secondary, pre-verified communication method.
+
+# Active Directory Management
+
+## 1. Active Directory Groups
+**Definition:** Collections of user accounts, computer accounts, and other groups that can be managed as a single unit.
+
+### Security Groups
+* **Definition:** Used to assign permissions to shared resources (files, folders, printers).
+* **Real-World Use Case:** Creating a group called "Accounting_FullAccess" and adding all accounting employees to it. You then give that *group* permission to the Payroll folder.
+* **Benefit:** When a new person joins the department, you simply add them to the group instead of manually updating folder permissions.
+
+### Distribution Groups
+* **Definition:** Used solely for email distribution lists. They **cannot** be used to assign permissions to resources.
+* **Real-World Use Case:** An "All-Staff" email list. Sending an email to this group forwards it to every member, but you cannot use "All-Staff" to secure a file share.
+
+### Organizational Unit (OU)
+* **Definition:** A container within a domain used to organize objects (users, computers, groups) and, most importantly, to **apply Group Policy Objects (GPOs)**.
+* **Real-World Use Case:** Creating an OU for "Chesapeake_Laptops" and another for "VirginiaBeach_Laptops." This allows you to apply different security settings based on the physical location of the devices.
+
+## 2. Group Scopes
+**Definition:** Determines the extent to which a group is applied within a forest or domain.
+
+| Scope | Definition / Usage |
+| :--- | :--- |
+| **Domain Local** | Used to assign permissions to resources (like a printer) within a **single domain**. |
+| **Global** | Used to organize users who share a similar function. These can be used in any domain in the forest. |
+| **Universal** | Used to grant permissions to similar resources across **multiple domains** in a forest. |
+
+## 3. Group Policy Objects (GPO)
+**Definition:** A feature of Active Directory that allows administrators to manage the working environment of user and computer accounts centrally.
+
+### Scripts
+* **Definition:** Allows admins to run specific scripts (PowerShell, VBScript, or Batch) at **Startup/Shutdown** for computers or **Logon/Logoff** for users.
+* **Use Case:** Automatically mapping a network drive (e.g., the S: drive) every time a user logs in.
+
+### Software Settings
+* **Definition:** Used to centrally manage software installation, updates, or removals across the network.
+* **Use Case:** Automatically "pushing" the latest version of a VPN client or Google Chrome to every laptop in the "Chesapeake" OU.
+
+### Account Policies
+* **Definition:** Defines security settings related to user accounts, specifically **Password Policies** and **Account Lockout Policies**.
+* **Use Case:** Enforcing a rule that passwords must be at least 14 characters long and users are locked out after 5 failed attempts.
+
+### Restricted Groups
+* **Definition:** A policy that allows an administrator to control who belongs to a sensitive local group on a workstation or server (like the local **Administrators** group).
+* **Benefit:** Prevents "Privilege Creep" by automatically removing any unauthorized users added to the local admin group by a user.
+
+### Folder Redirection
+* **Definition:** Redirects the path of known user folders (like "Documents" or "Desktop") to a centralized network location.
+* **Benefit:** If a user’s laptop hard drive fails, their files are safe because they were actually being saved to a secure server in the data center.
+
+### Administrative Templates (.admx)
+* **Definition:** Registry-based settings that provide a graphical interface for configuring thousands of OS and application settings.
+* **Real-World Use Case:** Using a template to disable the use of USB flash drives or to set the company logo as the mandatory desktop wallpaper for all employees.
+
+# The Group Policy Hierarchy (LSDOU)
+
+**Definition:** When multiple GPOs are configured, Windows processes them in a specific order. The **last policy applied wins** (overwrites previous settings), unless "Enforcement" is turned on.
+
+### 1. Local GPO
+* **Definition:** Settings stored directly on the individual computer. These apply to everyone who logs into that specific machine, regardless of the domain.
+* **Processing Order:** **1st** (First applied, easiest to overwrite).
+* **Real-World Use Case:** A standalone computer in a lab that isn't joined to a domain but needs a specific banner message at login.
+
+### 2. Site GPO
+* **Definition:** GPOs linked to a physical "Site" (a collection of IP subnets) in Active Directory.
+* **Processing Order:** **2nd**.
+* **Real-World Use Case:** A company with offices in **Chesapeake** and **Virginia Beach**. You might use a Site GPO to ensure computers in the Chesapeake office connect to the local printer in that building.
+
+### 3. Domain GPO
+* **Definition:** GPOs linked at the very top of the domain. These affect every user and computer account in the entire domain.
+* **Processing Order:** **3rd**.
+* **Real-World Use Case:** Enforcing a **Password Policy** (e.g., 14 characters minimum) that must be identical for every single employee in the organization.
+
+### 4. Organizational Unit (OU) GPO
+* **Definition:** GPOs linked to a specific OU. This is the most common way to manage settings for specific departments.
+* **Processing Order:** **4th**.
+* **Real-World Use Case:** Linking a GPO to the "Marketing" OU that allows them to use specialized design software, while the "Accounting" OU remains restricted.
+
+### 5. Child OU GPO
+* **Definition:** GPOs linked to a sub-OU nested inside a parent OU. 
+* **Processing Order:** **5th** (Last applied, highest precedence).
+* **Real-World Use Case:** You have a parent OU for "IT Department" and a Child OU for "IT Admins." You apply a general policy to the parent, but use the Child OU GPO to grant the Admins extra tools or access that the rest of the department doesn't get.
+
+## Important GPO Override Concepts
+
+* **Inheritance:** By default, settings from the Domain or Parent OU "flow down" to the Child OUs.
+* **Block Inheritance:** An administrator can stop parent GPOs from reaching a Child OU. (Useful for highly sensitive or "exception" groups).
+* **Enforced (No Override):** A setting at a higher level (like the Domain) can be "Enforced," meaning it will apply even if a Child OU tries to block it or change it.
+* **Loopback Processing:** A special mode used for kiosks or lab computers where the **Computer's** GPOs take priority over the **User's** GPOs.

@@ -1151,3 +1151,29 @@ To understand how these work, you have to look at the four specific players invo
 * **IaaS:** Spinning up a virtual server in **Microsoft Azure** or **AWS EC2**.
 * **PaaS:** Deploying code to **Google App Engine** or **AWS Elastic Beanstalk** without worrying about the underlying OS.
 * **SaaS:** Using **Microsoft 365**, **Salesforce**, or **Gmail**.
+
+# Cloud Deployment Models
+
+**Definition:** A configuration of environmental parameters such as the storage size, accessibility, and proprietorship of the infrastructure.
+
+### 1. Public Cloud
+* **Description:** The cloud infrastructure is made available to the general public or a large industry group and is owned by an organization selling cloud services.
+* **Real-World Use Case:** A startup using **Microsoft Azure** or **AWS** to host their website. They share the same physical hardware with thousands of other customers (multi-tenancy), though their data is logically isolated.
+* **Benefit:** High scalability and a "pay-as-you-go" cost model with no hardware to maintain.
+
+
+### 2. Private Cloud
+* **Description:** The cloud infrastructure is operated solely for a single organization. It may be managed by the organization or a third party and may exist on-premises or off-premises.
+* **Real-World Use Case:** A large bank that builds its own data center using **OpenStack** or **VMware Cloud Foundation**. Only the bank’s employees and internal applications can access these resources.
+* **Benefit:** Maximum control, security, and data sovereignty; ideal for strict regulatory compliance.
+
+### 3. Community Cloud
+* **Description:** The infrastructure is shared by several organizations that have shared concerns (e.g., mission, security requirements, policy, and compliance considerations).
+* **Real-World Use Case:** Several local police departments in **Hampton Roads** sharing a specialized cloud environment to host a joint criminal database. They split the costs and ensure the environment meets specific law enforcement security standards.
+* **Benefit:** Shared costs and collaborative security tailored to a specific vertical or industry.
+
+
+### 4. Hybrid Cloud
+* **Description:** A composition of two or more distinct cloud infrastructures (Private, Community, or Public) that remain unique entities but are bound together by standardized technology.
+* **Real-World Use Case:** A company that keeps its sensitive customer database on a **Private Cloud** (on-premises) for security but uses a **Public Cloud** (like Azure) to handle web traffic "bursts" during a high-volume sale.
+* **Benefit:** Provides the "best of both worlds"—flexibility of the public cloud with the security of the private cloud.

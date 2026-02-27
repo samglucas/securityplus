@@ -1954,3 +1954,58 @@ The response is generally broken into four main phases:
 * **Verification:** Test systems under full load and scan for vulnerabilities.
 * **Clean-up:** Remove temporary containment measures, such as network isolation or disabled services.
 * **Continuous Monitoring:** Watch for repeating or secondary issues immediately after restoration.
+
+# Threat Hunting and Forensic Evidence
+
+## 1. Threat Hunting
+**Definition:** A proactive security exercise where analysts search through networks and datasets to detect threats that have evaded existing automated security tools.
+
+### The Threat Hunting Process
+1. **Determine Purpose:** Identify the business or strategic goal, such as finding specific attackers or weaknesses in current response processes.
+2. **Collect Data:** Gather raw data from internal logging and external threat intelligence sources.
+3. **Establish Hypothesis:** Create a testable question based on intelligence, analytics, or network awareness.
+4. **Build and Approve Plan:** Develop a testing plan for the hypothesis and obtain standard procedural approval.
+5. **Execute and Revise:** Analyze the data, findings, and revise the hypothesis. Compile results into a report with recommended resolutions.
+6. **Take Action:** Perform necessary incident response or vulnerability management based on report findings.
+7. **Retrospective Analysis:** Review the hunt to provide feedback and improve future hunting exercises.
+
+## 2. Forensic Evidence Types
+**Definition:** Information used in legal proceedings or formal reviews to document the "who, what, when, where, and how" of an event.
+
+* **Sworn Testimony:** Verbal or written statements provided by witnesses under oath.
+* **Physical Evidence:** Tangible objects such as hard drives, mobile devices, or physical surveillance media.
+* **Documentary Evidence:** Written records, including system logs, SIP traffic records, and VoIP logs.
+* **Circumstantial Evidence:** Evidence that relies on an inference to connect it to a conclusion of fact (e.g., a login from an IP known to be used by an attacker).
+
+## 3. Evidence Handling & Volatility
+When collecting evidence, analysts must prioritize data based on its **Order of Volatility**—collecting the most time-sensitive data first to prevent its loss.
+
+### Order of Volatility (High to Low)
+1. **CPU Registers and Cache Memory**
+2. **Routing Tables, ARP Cache, Process Tables, and Kernel Stats**
+3. **Other RAM Contents**
+4. **Swap Files or other temporary file systems**
+5. **Other Data on hard drives or flash media**
+6. **Network Logging Data**
+7. **Firmware or physical configuration**
+8. **Archival Media (Optical discs, printouts)**
+
+### Evidence Preservation
+* **Hashing:** Use secure algorithms (MD5/SHA) to create digital fingerprints of all collected data.
+* **Chain of Custody:** Maintain a permanent, accountable record of who handled the evidence and when.
+* **Secure Storage:** Keep physical and digital evidence in a secure location to prevent alteration.
+
+## 4. Metadata
+* **Definition:** "Data about data" that provides context to a file or event.
+* **Role in Forensics:** Metadata can reveal when a file was created, who modified it, and the geographic location (geotags) of its origin.
+
+## 5. E-Discovery and Legal Holds
+* **E-Discovery:** The process by which electronic data is sought, located, secured, and searched with the intent of using it as evidence in a legal case.
+* **EDRM (Electronic Discovery Reference Model):** A conceptual framework that outlines the stages of the e-discovery process, from identification to production.
+* **Legal Hold:** A formal order to preserve all forms of relevant information when litigation is reasonably anticipated. If significant evidence is in the custody of a third party, administrators must act quickly with legal staff to place it under hold.
+
+## 6. Restoring Service
+Once the threat is eradicated, the focus shifts to returning the system to full operation.
+* **Harden the Environment:** Apply updates, disable unnecessary services, and revise ACLs.
+* **Verify Integrity:** Scan for vulnerabilities and ensure system permissions have not been altered from the baseline.
+* **Monitor Continuously:** Watch for repeating or secondary issues following restoration.

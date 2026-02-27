@@ -1895,3 +1895,62 @@ Since you teach **Linux**, these are the "big four" for log analysis:
 ### Alert Response
 * **Definition:** The specific, documented steps an analyst takes once an alert is triggered.
 * **Automation:** Modern SOCs use **SOAR (Security Orchestration, Automation, and Response)** to handle the initial response, such as automatically isolating a host or resetting a password when a high-confidence alert fires.
+
+# Incident Response Process & Procedures
+
+## 1. The Incident Response Team (IRT)
+**Definition:** A cross-functional group responsible for responding to and managing security events.
+
+* **Leadership:** Provides overall direction and decision-making authority.
+* **Technical Knowledge:** Specialists who understand the systems and how to investigate them.
+* **Security Principles:** Experts in defensive measures and forensic preservation.
+* **Human Resources (HR):** Involved if an incident involves internal employees.
+* **Legal Adviser:** Ensures the response complies with laws and manages liability.
+* **Communications / PR:** Manages internal and external messaging to protect the organization's reputation.
+
+## 2. The Standard IR Process (NIST/SANS Model)
+The response is generally broken into four main phases:
+1. **Preparation:** Establishing the tools, policies, and team before an attack occurs.
+2. **Detection and Analysis:** Identifying that an event is happening and determining its nature.
+3. **Containment, Eradication, and Recovery:** Stopping the spread, removing the threat, and restoring services.
+4. **Post-Incident Activity / Lessons Learned:** Documenting the event to improve future defenses.
+
+## 3. Detection and Analysis (Identification)
+* **Multiple Sources:** Rely on IDS alerts, log reviews, and user reports to identify anomalies.
+* **Quick Accuracy:** Distinguish between ordinary activity and potential threats quickly to prevent disasters.
+* **Evaluating Nature:** Determine if the event is a data breach, malware infection, DoS, or unauthorized access.
+* **Evaluating Scope:** Assess how many systems are affected and the criticality of the data at risk.
+* **Escalation:** Communicate findings immediately to the IRT and management.
+
+## 4. Containment and Investigation
+**Goal:** Stop the incident from escalating while minimizing operational impact and preserving evidence.
+
+### Containment Strategies
+* **Isolation:** Disconnecting affected systems from the network.
+* **Segmentation:** Moving affected services to a security sandbox or segmented network.
+* **Direct Monitoring:** Watching C2 traffic on critical services when shutdown is too disruptive.
+* **System Replacement:** Bringing clean backup systems online while keeping infected ones for study.
+
+### Forensic Investigation
+* **Data Collection:** Collect authentication logs, memory dumps, and network traffic records.
+* **Evidence Preservation:** Secure physical and remote access to prevent data from being altered.
+* **Documentation:** Record the scene as found; use forensic backup software to make disk images.
+
+## 5. Reporting and Eradication
+
+### Reporting Incidents
+* **Legal Obligations:** Notify law enforcement (FBI/Secret Service) for crimes or regulatory bodies for privacy breaches.
+* **Public Relations:** Coordinate with public relations to ensure external statements are approved and do not leak proprietary info.
+* **Community Sharing:** Share non-sensitive indicators with the security community (ISACs) to improve collective defense.
+
+### Eradication and Root Cause Analysis
+* **Problem Removal:** Fully removing the malware, unauthorized accounts, or vulnerabilities that allowed the attack.
+* **Root Cause Analysis (RCA):** Deeply analyzing *why* the incident happened to fix the underlying weakness permanently.
+
+## 6. Restoring Services
+**Goal:** Return systems to full operation while verifying security has been strengthened.
+
+* **Hardening:** Apply updates, disable unnecessary services, and revise ACLs to prevent recurrence.
+* **Verification:** Test systems under full load and scan for vulnerabilities.
+* **Clean-up:** Remove temporary containment measures, such as network isolation or disabled services.
+* **Continuous Monitoring:** Watch for repeating or secondary issues immediately after restoration.

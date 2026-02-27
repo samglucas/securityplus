@@ -1851,3 +1851,47 @@ Since you teach **Linux**, these are the "big four" for log analysis:
 * **Correlation:** The most important feature. It connects the dots: "Login failure on Server A" + "Port scan on Firewall B" = **Brute Force Attack Alert.**
 * **Alerts:** Notifying the admin via email or dashboard when a correlation rule is triggered.
 * **Log Retention:** Storing logs for a set period (often 1 year+) to meet legal and compliance requirements.
+
+# SIEM Logic and Incident Alerting
+
+## 1. Detection Logic: Rules, Correlations, and Models
+**Definition:** The "intelligence" used by the SIEM to identify a potential security incident within a mountain of log data.
+
+### Rules
+* **Definition:** A set of predefined conditions that trigger an action. Rules are typically "if/then" statements.
+* **Example:** "IF a user fails to log in 5 times within 1 minute, THEN trigger a 'Brute Force Attempt' alert."
+
+### Correlations
+* **Definition:** The process of linking multiple independent events from different sources to identify a pattern of malicious activity.
+* **Real-World Use Case:** 1. An external IP scans your Firewall (**Network Event**).
+    2. The same IP successfully logs into a VPN account (**Identity Event**).
+    3. That account then accesses a database it never uses (**Application Event**).
+* **Benefit:** A SIEM correlates these three "low-severity" events into one "Critical" security incident.
+
+### Models (User and Entity Behavior Analytics - UEBA)
+* **Definition:** Using machine learning to build a "Baseline" of normal behavior for users and devices.
+* **Mechanism:** Instead of a static rule, a model looks for deviations from the norm. 
+* **Example:** If you normally log in from **Chesapeake, VA** between 9 AM and 5 PM, a model will flag a login at 2 AM from an IP in a different country as "Anomalous."
+
+## 2. The Alerting Lifecycle
+
+### Alarm vs. Alert
+* **Alert:** A notification that a specific event or condition has been met. It is the "entry" in the dashboard.
+* **Alarm:** A more urgent, high-priority alert that typically requires immediate human intervention (often involving a sound, a page, or a phone call).
+
+### Threat
+* **Definition:** Any circumstance or event with the potential to adversely impact organizational operations. The SIEM is designed to turn "raw data" into "threat intelligence."
+
+## 3. Managing "The Noise"
+
+### Alert Tuning
+* **Definition:** The continuous process of refining SIEM rules to increase accuracy and reduce "False Positives" (legitimate activity flagged as malicious).
+* **Action:** If a backup service regularly triggers "High Disk Usage" alerts every night at 12 AM, you "tune" the rule to ignore that specific service account during that window.
+
+### Alert Fatigue
+* **Definition:** A dangerous condition where security analysts become overwhelmed by the sheer volume of alerts, leading them to ignore, miss, or minimize real threats.
+* **Impact:** This is one of the leading causes of security breaches in large SOCs.
+
+### Alert Response
+* **Definition:** The specific, documented steps an analyst takes once an alert is triggered.
+* **Automation:** Modern SOCs use **SOAR (Security Orchestration, Automation, and Response)** to handle the initial response, such as automatically isolating a host or resetting a password when a high-confidence alert fires.

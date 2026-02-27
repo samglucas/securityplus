@@ -1664,3 +1664,44 @@ To understand how these work, you have to look at the four specific players invo
 ## 8. Risks of Automation & Guardrails
 * **Risks:** "Automating a mess creates an automated mess." Errors can propagate across thousands of servers in seconds if a script is buggy.
 * **Guardrails:** Implementing **Limiters** (e.g., "don't delete more than 10% of servers at once") and **Manual Checkpoints** in automated workflows to prevent catastrophic failures.
+
+# Asset and Configuration Management
+
+## 1. Inventory Management
+**Definition:** The process of tracking every piece of hardware and software within an organization. You cannot secure what you do not know exists.
+* **Hardware Inventory:** Tracking physical assets (Laptops, Servers, Routers) using Serial Numbers, Asset Tags, and MAC addresses.
+* **Software Inventory:** Maintaining a list of installed applications and licenses to ensure compliance and to identify "Shadow IT" (unauthorized software).
+* **Security Value:** Essential for vulnerability management; if a new critical bug is found in a specific laptop model, you need to know exactly how many you have and where they are.
+
+## 2. Configuration Management (CM)
+**Definition:** The process of maintaining a system’s settings and performance in a known, consistent state throughout its life. 
+* **Baselines:** Creating a "Golden Image" or a standard set of security settings that every new server must follow.
+* **Configuration Management Tools:**
+    * **Ansible:** Uses "Playbooks" (YAML) to push configurations. It is **Agentless**, meaning you don't need to install software on the target.
+    * **Puppet / Chef:** Uses an **Agent-based** model where the client periodically checks a central server for updates.
+    * **Terraform:** Focuses on **Infrastructure as Code (IaC)** to provision the actual hardware/cloud resources.
+
+## 3. The CMDB and SCM
+* **CMDB (Configuration Management Database):** A centralized repository that stores information about all **Configuration Items (CIs)**—including hardware, software, and the *relationships* between them. 
+    * *Example:* The CMDB shows that "Server A" runs "SQL Database B," which supports "Payroll App C."
+* **SCM (Software Configuration Management):** A subset of CM that focuses specifically on the evolution of software. It tracks changes to code, documentation, and requirements.
+
+## 4. Version Control
+* **Definition:** A system that records changes to a file or set of files over time so that you can recall specific versions later.
+* **Centralized (SVN):** One central server holds all the files.
+* **Distributed (Git):** Every user has a full copy of the repository history on their local machine.
+* **Key Terms:**
+    * **Commit:** Saving your changes to the history.
+    * **Branch:** Creating a separate "path" to test a new feature without breaking the main code.
+    * **Merge:** Combining a branch back into the main project.
+    * **Rollback:** Returning to a previous "known good" state after a change causes a failure.
+
+## 5. Planning Patch Management
+**Definition:** A systematic approach to testing and deploying software updates (patches) to fix bugs and security vulnerabilities.
+
+### The Patch Management Workflow:
+1. **Monitoring:** Subscribing to vendor alerts (like Microsoft Security Bulletins) to know when a patch is released.
+2. **Assessment:** Determining if the patch is relevant to your environment. (Does this Linux patch apply to our specific distro?)
+3. **Staging/Testing:** **Crucial Step.** Installing the patch in a "lab" environment that mimics production to ensure it doesn't cause crashes or compatibility issues.
+4. **Deployment:** Pushing the patch to production servers, often using a **Rolling Update** to maintain availability.
+5. **Verification:** Scanning systems after the patch to confirm it was installed correctly and the vulnerability is gone.

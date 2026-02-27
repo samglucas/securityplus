@@ -1705,3 +1705,63 @@ To understand how these work, you have to look at the four specific players invo
 3. **Staging/Testing:** **Crucial Step.** Installing the patch in a "lab" environment that mimics production to ensure it doesn't cause crashes or compatibility issues.
 4. **Deployment:** Pushing the patch to production servers, often using a **Rolling Update** to maintain availability.
 5. **Verification:** Scanning systems after the patch to confirm it was installed correctly and the vulnerability is gone.
+
+# Business Continuity & Disaster Recovery (BCDR)
+
+## 1. The Planning Framework
+* **Business Continuity Plan (BCP):** A high-level, proactive strategy for maintaining business operations during a disruption.
+* **Business Impact Analysis (BIA):** The process of identifying **Mission Essential Functions** and the potential impact of their loss.
+* **Disaster Recovery Plan (DRP):** A technical, reactive plan containing specific steps to restore IT systems and data after a disaster.
+* **ISCP (Information System Contingency Plan):** Technical procedures for recovering specific systems.
+* **COOP (Continuity of Operations):** A US government term for ensuring essential functions continue during an emergency.
+* **Succession Planning:** Identifying and developing internal people with the potential to fill key leadership positions if they become unavailable.
+
+## 2. Recovery Objectives
+To create a BCP/DRP, you must define your "Time" and "Data" limits:
+* **RTO (Recovery Time Objective):** The maximum amount of time a system can be down before the business suffers unacceptable consequences. (e.g., "The web server must be back up in 4 hours.")
+* **RPO (Recovery Point Objective):** The maximum amount of data loss measured in time. (e.g., "We can lose up to 1 hour of data; therefore, we must back up every 60 minutes.")
+
+## 3. High Availability & Power
+* **Fault Tolerance:** The ability of a system to continue operating even if one or more components fail (e.g., redundant power supplies).
+* **UPS (Uninterruptible Power Supply):** A battery backup that provides immediate power for a short time to allow for a graceful shutdown or to bridge the gap until a **Generator** kicks in.
+* **Redundant Power Distribution:** Using two different power circuits (A-side and B-side) to ensure that a single tripped breaker doesn't take down a rack.
+
+## 4. Scalability & Redundancy
+* **Vertical Scaling (Scaling Up):** Adding more "horsepower" (CPU, RAM) to an existing server.
+* **Horizontal Scaling (Scaling Out):** Adding more servers to a cluster to share the load.
+* **Elasticity:** The ability of a system (usually in the cloud) to scale up and down automatically based on demand.
+* **Load Balancing vs. Clustering:**
+    * **Load Balancing:** Distributes traffic across multiple servers.
+    * **Clustering:** A group of servers working together so they appear as a single system, providing high availability.
+
+## 5. Alternate Processing Sites
+| Site Type | Readiness | Cost | Description |
+| :--- | :--- | :--- | :--- |
+| **Hot Site** | Minutes/Hours | Highest | A fully functional, mirrored data center with live data. |
+| **Warm Site** | Hours/Days | Medium | Has hardware and some connectivity, but backups must be restored. |
+| **Cold Site** | Days/Weeks | Lowest | An empty room with power/HVAC. No hardware or data present. |
+| **Mobile Site** | Variable | Medium | A trailer or container outfitted as a data center that can be moved. |
+
+## 6. Testing the Plan
+* **Checklist/Read Through:** A simple review of the document for accuracy.
+* **Tabletop Exercise (TTX):** Stakeholders gather in a room to discuss their response to a hypothetical scenario.
+* **Simulation:** A hands-on drill where staff perform their recovery tasks in a non-production environment.
+* **Parallel Test:** Restoring systems at an alternate site while the main site is still running.
+* **Full Interruption:** Shutting down the main site to see if the recovery site actually works. (High risk!)
+
+## 7. Data Backup & Storage
+### The 3-2-1 Rule
+* **3** total copies of your data (1 primary, 2 backups).
+* **2** different media types (e.g., Disk and Tape).
+* **1** copy offsite (e.g., Cloud or a physical vault).
+
+### Backup Types
+* **Full:** A complete copy of all data.
+* **Differential:** Backs up everything changed since the **last Full backup**. (Faster to restore).
+* **Incremental:** Backs up everything changed since the **last backup of any type**. (Faster to back up).
+* **Snapshot / Image:** A point-in-time capture of a virtual machine or entire drive.
+
+### Storage Replication
+* **RAID:** Redundancy at the disk level to protect against drive failure.
+* **Synchronous Replication:** Data is written to two locations at the same time. No data loss, but slower performance due to latency.
+* **Asynchronous Replication:** Data is written to the primary site, then sent to the secondary site shortly after. Better performance, but risks slight data loss if the primary site fails before the sync.

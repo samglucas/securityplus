@@ -1765,3 +1765,89 @@ To create a BCP/DRP, you must define your "Time" and "Data" limits:
 * **RAID:** Redundancy at the disk level to protect against drive failure.
 * **Synchronous Replication:** Data is written to two locations at the same time. No data loss, but slower performance due to latency.
 * **Asynchronous Replication:** Data is written to the primary site, then sent to the secondary site shortly after. Better performance, but risks slight data loss if the primary site fails before the sync.
+
+# Security Monitoring & Analysis
+
+## 1. Monitoring Domains
+**Definition:** The systematic collection and analysis of information to maintain a baseline and detect deviations.
+
+* **Event Monitoring:** Tracking specific changes in state (e.g., a service starting or a user logging in).
+* **Network Monitoring:** Analyzing traffic patterns, bandwidth, and protocol health (using SNMP or NetFlow).
+* **Endpoint Monitoring:** Focusing on the health and security of individual hosts (via EDR or HIDS).
+* **Application Monitoring:** Tracking the performance and errors of specific software services.
+* **Identity & Access Monitoring:** Watching for unusual login locations or "Privilege Escalation" attempts.
+* **Data Security Monitoring:** Using DLP and File Integrity Monitoring (FIM) to watch for unauthorized data movement.
+
+## 2. Agent-Based vs. Agentless Monitoring
+
+| Feature | Agent-Based | Agentless |
+| :--- | :--- | :--- |
+| **Mechanism** | Software installed on the target. | Remote collection via APIs (WMI, SNMP, SSH). |
+| **Visibility** | Deep (Kernel-level, local files). | Broad (System-level, network-facing). |
+| **Network** | **Push-based:** Agent sends data out. | **Pull-based:** Server asks for data. |
+| **Overhead** | Consumes local CPU/RAM. | No footprint on the target; high network load. |
+
+### Communication Models:
+* **Push-Based:** The monitored device initiates the connection to the central server. Ideal for devices behind firewalls.
+* **Pull-Based:** The central server reaches out to the device to "scrape" data. Easier to manage centrally but requires open inbound ports on the target.
+
+## 3. Network Monitoring Hardware
+
+### In-Line vs. Tap-Based
+* **TAP (Test Access Point):** A hardware device inserted into a cable. It splits the signal to create a 100% accurate copy of traffic without impacting the network speed.
+* **Port Mirroring (SPAN):** A software feature on a switch that copies traffic from one port to another.
+    * **Risk:** During high traffic, the switch may drop "mirror" packets to prioritize real traffic.
+
+### Network Packet Broker (NPB)
+* **Definition:** A device that sits between TAPs/SPAN ports and your monitoring tools. It filters, aggregates, and load-balances the traffic so your tools only see the data they need.
+
+## 4. Simple Network Management Protocol (SNMP)
+**Definition:** The standard protocol for collecting and organizing information about managed devices on IP networks.
+
+* **Agent:** Software on the managed device (router/switch).
+* **Manager:** The central NMS (Network Management System) that collects the data.
+* **MIB (Management Information Base):** The "dictionary" or database schema that defines what can be monitored on a device.
+* **OID (Object Identifier):** A unique numeric string used to identify a specific piece of data (e.g., `.1.3.6.1.2.1.1.5.0` is the SysName).
+
+### SNMP Versions:
+* **v1 & v2:** **Insecure.** They use "Community Strings" (passwords) sent in cleartext.
+* **v3:** **Secure.** Provides encryption, authentication, and integrity. **Always use v3 in production.**
+
+## 5. Logging Standards
+
+### Syslog
+* **Definition:** A standard for message logging. It allows a device to send event notifications across IP networks to an event message collector.
+* **Severity Levels (0-7):**
+    * **0: Emergency** (System unusable)
+    * **1: Alert** (Immediate action needed)
+    * **2: Critical** (Critical conditions)
+    * **3: Error** (Error conditions)
+    * **4: Warning** (Warning conditions)
+    * **5: Notice** (Normal but significant)
+    * **6: Info** (Informational)
+    * **7: Debug** (Detailed troubleshooting)
+
+### NetFlow
+* **Definition:** A Cisco-developed protocol that provides "Metadata" about network traffic (Source IP, Dest IP, Port, Duration). 
+* **Analogy:** Syslog is the "Phone Conversation," while NetFlow is the "Phone Bill" (who called whom and for how long).
+
+## 6. Linux File Manipulation (The "Admin Toolbox")
+Since you teach **Linux**, these are the "big four" for log analysis:
+* `head`: View the first 10 lines of a file.
+* `tail`: View the last 10 lines (use `tail -f` to watch a log update in real-time).
+* `cat`: Display the entire contents of a file.
+* `grep`: Search for a specific string within a file (e.g., `grep "Failed password" /var/log/auth.log`).
+
+## 7. Analysis & Analytics
+* **Trend Analysis:** Looking at data over a long period to predict future behavior (e.g., "Disk space will be full in 30 days").
+* **Anomaly Analysis:** Identifying data points that fall outside the "normal" baseline.
+* **Heuristic Analysis:** Using experience-based techniques (rules of thumb) to identify threats that haven't been seen before.
+* **UBA (User Behavior Analytics):** Establishing a baseline of how "Sam Lucas" normally acts. If Sam suddenly logs in at 3 AM from a different country and downloads 50GB of data, UBA flags the account as compromised.
+
+## 8. SIEM (The "Brain" of the SOC)
+**SIEM (Security Information and Event Management)** is where all the logs from all your sources meet.
+
+* **Aggregation:** Gathering logs from hundreds of different sources into one place.
+* **Correlation:** The most important feature. It connects the dots: "Login failure on Server A" + "Port scan on Firewall B" = **Brute Force Attack Alert.**
+* **Alerts:** Notifying the admin via email or dashboard when a correlation rule is triggered.
+* **Log Retention:** Storing logs for a set period (often 1 year+) to meet legal and compliance requirements.
